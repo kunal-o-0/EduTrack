@@ -1,0 +1,87 @@
+.side-menu{
+    display: flex;
+    flex-direction: column;
+    list-style-type: none;
+    height: 100%;
+    background-color: #222831;
+    position: fixed;
+    z-index: 10;
+    overflow: hidden;
+    box-shadow: 0.5vw 0vw 3vw 0.1vw rgb(187, 187, 187);
+}
+.collapsed{
+    position: fixed;
+    top: 3.5vw;
+    width: 4%;
+    z-index: -1;
+}
+.collapsed-img > img{
+    width: 100%;
+    height: auto;
+}
+.menu-option{
+    position: relative;
+    background-color: #222831;
+    height: 3vw;
+    width: 100%;
+    margin-bottom: 1vw;
+}
+.menu-option > img{
+    position: absolute;
+    top: 50%;
+    left: 1vw;
+    transform: translateY(-50%);
+    width: auto;
+    height: 50%;
+}
+.menu-option > span{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    text-decoration: none;
+    font-size: 1.5vw;
+    color: #EEEEEE;
+    left: 4vw;
+}
+.menu-option-item:hover{
+    background-color: #393E46;
+    cursor: pointer;
+}
+.menu-option-title{
+    background-color: #393E46;
+    height: 5vw;
+}
+.menu-option-title > #img-inst{
+    width: auto;
+    height: 3vw;
+}
+.menu-option > #txt-inst{
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 5vw; 
+    transform: translateY(-50%);
+    color: #EEEEEE;
+    font-size: 1.5vw;
+}
+
+#menu-username{
+    position: absolute;
+    top: 50%;
+    left: 1vw;
+    transform: translateY(-50%);
+    text-decoration: none;
+    font-size: 1.5vw;
+    color: #EEEEEE;
+    font-weight: 900;
+}
+
+@media all and (max-width:992px)
+{
+    
+}
+
+@media all and (max-width:767px)
+{
+    
+}
