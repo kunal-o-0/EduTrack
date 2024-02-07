@@ -1,12 +1,9 @@
 import React, { useState } from "react";
-import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import {
-  Button,
   List,
   ListItem,
   ListItemButton,
-  ListItemIcon,
   ListItemText,
   Paper,
   Stack,
@@ -16,23 +13,25 @@ import Divider from "@mui/material/Divider";
 
 function Announcements() {
   const [announ, setAnnoun] = useState("");
+  const [activeAnnoun, setActiveAnnoun] = useState();
 
-  const handleAnnounClick = (e) => {
-    setAnnoun(`Hello ${e.target.value}`);
+  const handleAnnounClick = (e, id) => {
+    setAnnoun(`${e.target.textContent}`);
+    setActiveAnnoun(id);
   };
 
   return (
     <Paper
       sx={{
         position: "absolute",
-        marginTop: "150px",
-        marginLeft: "200px",
+        marginTop: "8vw",
+        marginLeft: "9vw",
         color: "#222831",
         width: "inherit",
       }}
-      elevation={6}
+      elevation={12}
     >
-      <Stack direction="row">
+      <Stack direction="row" spacing={2}>
         <Box
           sx={{
             width: "20vw",
@@ -47,23 +46,54 @@ function Announcements() {
               const labelValue = `Announcement ${value}`;
 
               return (
-                <ListItem
-                  disablePadding
-                  key={value}
-                  onClick={handleAnnounClick}
-                >
-                  <ListItemButton>
-                    <ListItemText primary={labelValue} />
-                  </ListItemButton>
-                </ListItem>
+                <>
+                  <ListItem
+                    disablePadding
+                    id={value}
+                    onClick={(event) => {
+                      handleAnnounClick(event, value);
+                    }}
+                    sx={{
+                      bgcolor: `${activeAnnoun !== value ? "" : "#393E46"}`,
+                    }}
+                  >
+                    <ListItemButton disableRipple>
+                      <ListItemText
+                        primary={labelValue}
+                        primaryTypographyProps={{
+                          fontSize: "1.3rem",
+                          fontWeight: "600",
+                        }}
+                      />
+                    </ListItemButton>
+                  </ListItem>
+                  <Divider color="#393E46" variant="middle" />
+                </>
               );
             })}
           </List>
         </Box>
 
-        <Box sx={{ width: "60vw", bgcolor: "white" }}>
-          <Typography variant="h5">{announ}</Typography>
-        </Box>
+        <Stack
+          sx={{
+            width: "60vw",
+            height: "700px",
+            bgcolor: "white",
+            overflow: "auto",
+          }}
+        >
+          <Typography
+            variant="h5"
+            align="center"
+            sx={{ fontSize: "1.8rem", fontWeight: "600" }}
+            gutterBottom
+          >
+            {announ}
+          </Typography>
+          <Typography variant="div2">
+            Here you will see content of announcement
+          </Typography>
+        </Stack>
       </Stack>
     </Paper>
   );
