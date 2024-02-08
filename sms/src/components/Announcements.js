@@ -41,7 +41,7 @@ function Announcements() {
             overflow: "auto",
           }}
         >
-          <List>
+          <List disablePadding>
             {[1, 2, 3, 4, 5].map((value) => {
               const labelValue = `Announcement ${value}`;
 
