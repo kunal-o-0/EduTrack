@@ -23,24 +23,33 @@ function Schedule() {
     <Paper
       sx={{
         position: "absolute",
-        marginLeft: "8vw",
-        marginTop: "7vw",
-        width: "90vw",
-        height: "80%",
+        marginLeft: "9rem",
+        marginTop: "8rem",
+        width: "85%",
+        maxHeight: "45rem",
       }}
       elevation={12}
     >
-      <Stack direction="row" sx={{ height: "100%" }}>
+      <Stack direction="row" sx={{ maxHeight: "45rem", minWidth: "60rem" }}>
         <Box
           sx={{
-            bgcolor: "white",
+            bgcolor: Styles.colors.primary,
             width: "20vw",
             bgcolor: `${Styles.colors.primary_dark}`,
             overflowY: "auto",
+            minWidth: "20rem",
           }}
         >
           <List disablePadding>
             {[
+              { date: "23", month: "Jan", title: "Schedule 1" },
+              { date: "25", month: "Jan", title: "Schedule 2" },
+              { date: "14", month: "Feb", title: "Schedule 3" },
+              { date: "1", month: "Aug", title: "Schedule 4" },
+              { date: "23", month: "Jan", title: "Schedule 1" },
+              { date: "25", month: "Jan", title: "Schedule 2" },
+              { date: "14", month: "Feb", title: "Schedule 3" },
+              { date: "1", month: "Aug", title: "Schedule 4" },
               { date: "23", month: "Jan", title: "Schedule 1" },
               { date: "25", month: "Jan", title: "Schedule 2" },
               { date: "14", month: "Feb", title: "Schedule 3" },
@@ -126,7 +135,7 @@ function Schedule() {
             })}
           </List>
         </Box>
-        <Box sx={{ width: "100%", height: "100%" }}>
+        <Box sx={{ width: "100%", maxHeight: "45rem", bgcolor: "white" }}>
           <Stack>
             <Typography
               variant="h5"

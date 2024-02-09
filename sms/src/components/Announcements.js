@@ -24,8 +24,8 @@ function Announcements() {
     <Paper
       sx={{
         position: "absolute",
-        marginTop: "8vw",
-        marginLeft: "9vw",
+        marginTop: "8rem",
+        marginLeft: "9rem",
         color: "#222831",
         width: "inherit",
       }}
@@ -42,7 +42,10 @@ function Announcements() {
           }}
         >
           <List disablePadding>
-            {[1, 2, 3, 4, 5].map((value) => {
+            {[
+              1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2,
+              3, 4, 5,
+            ].map((value) => {
               const labelValue = `Announcement ${value}`;
 
               return (
