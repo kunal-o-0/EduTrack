@@ -1,6 +1,7 @@
 package com.app.entities.primary;
 
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.app.entities.secondary.Address;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -36,7 +39,8 @@ public class Head {
 	private String headMobNo;
 	
 	@Column(name="address")
-	private String headAddress;
+	@Embedded
+	private Address headAddress;
 	
 	@Column(name="qualification",length = 50)
 	private String headQualif;

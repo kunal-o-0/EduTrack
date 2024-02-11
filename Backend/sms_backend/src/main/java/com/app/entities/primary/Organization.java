@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,6 +12,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.app.entities.secondary.Address;
+import com.app.entities.secondary.Announcement;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -32,7 +36,8 @@ public class Organization {
 	private String orgType;
 	
 	@Column(name = "address")
-	private String orgAddress;
+	@Embedded
+	private Address orgAddress;
 	
 	@OneToMany(mappedBy = "organization",cascade = CascadeType.ALL)
 	private List<Student> students;
@@ -45,4 +50,7 @@ public class Organization {
 	
 	@OneToOne(mappedBy = "organization")
 	private Head head;
+	
+	@OneToMany(mappedBy = "organization",cascade = CascadeType.ALL)
+	private List<Announcement> announcements;
 }

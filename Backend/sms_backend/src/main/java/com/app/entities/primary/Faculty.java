@@ -3,6 +3,7 @@ package com.app.entities.primary;
 import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,6 +14,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.app.entities.secondary.Address;
 import com.app.entities.secondary.Subject;
 
 import lombok.Data;
@@ -41,7 +43,8 @@ public class Faculty {
 	private String facMobNo;
 	
 	@Column(name="address")
-	private String facAddress;
+	@Embedded
+	private Address facAddress;
 	
 	@Column(name="qualification",length = 50)
 	private String facQualif;

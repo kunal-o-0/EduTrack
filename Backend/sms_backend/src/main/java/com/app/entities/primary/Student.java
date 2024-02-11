@@ -2,16 +2,23 @@ package com.app.entities.primary;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.app.entities.secondary.Address;
+import com.app.entities.secondary.Attendance;
 import com.app.entities.secondary.Course;
+import com.app.entities.secondary.Fees;
+import com.app.entities.secondary.Performance;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -46,7 +53,8 @@ public class Student {
 	private String studMobNo;
 	
 	@Column(name="address")
-	private String studAddress;
+	@Embedded
+	private Address studAddress;
 	
 	@Column(name="blood_group",length = 10)
 	private String studBloodGrp;
@@ -67,4 +75,13 @@ public class Student {
 	@ManyToOne
 	@JoinColumn(name="course_id",nullable = false)
 	private Course course;
+	
+	@OneToMany(mappedBy = "student",cascade = CascadeType.ALL)
+	private List<Fees> fees;
+	
+	@OneToMany(mappedBy = "student",cascade = CascadeType.ALL)
+	private List<Attendance> attendances;
+	
+	@OneToMany(mappedBy = "student",cascade = CascadeType.ALL)
+	private List<Performance> performances;
 }

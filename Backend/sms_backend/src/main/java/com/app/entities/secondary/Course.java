@@ -2,6 +2,7 @@ package com.app.entities.secondary;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -30,4 +31,7 @@ public class Course {
 	
 	@OneToMany(mappedBy = "course")
 	private List<Student> students;
+	
+	@OneToMany(mappedBy = "course",cascade = CascadeType.ALL)
+	private List<Subject> subjects;
 }

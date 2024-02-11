@@ -1,6 +1,7 @@
 package com.app.entities.primary;
 
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -8,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.app.entities.secondary.Address;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -35,7 +38,8 @@ public class Staff {
 	private String staffMobNo;
 	
 	@Column(name="address")
-	private String staffAddress;
+	@Embedded
+	private Address staffAddress;
 	
 	@Column(name="qualification",length = 50)
 	private String staffQualif;

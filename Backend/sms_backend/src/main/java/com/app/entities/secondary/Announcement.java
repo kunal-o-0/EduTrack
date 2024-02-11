@@ -7,7 +7,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.app.entities.primary.Organization;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -30,4 +34,8 @@ public class Announcement {
 	
 	@Column(name="timestamp")
 	private Timestamp announTimestamp;
+	
+	@ManyToOne
+	@JoinColumn(name="org_id",nullable=false)
+	private Organization organization;
 }

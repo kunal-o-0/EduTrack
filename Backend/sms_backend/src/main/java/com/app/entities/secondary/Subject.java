@@ -7,7 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.app.entities.primary.Faculty;
@@ -33,4 +35,10 @@ public class Subject {
 	
 	@ManyToMany(mappedBy = "subjects")
 	private List<Faculty> faculties;
+	
+	@ManyToOne
+	@JoinColumn(name="course_id",nullable = false)
+	private Course course;
+	
+	//unidirectional relation inside schedule and performance
 }
