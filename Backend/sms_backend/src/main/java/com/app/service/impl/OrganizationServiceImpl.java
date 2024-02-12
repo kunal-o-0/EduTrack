@@ -8,8 +8,10 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.app.dao.HeadDao;
 import com.app.dao.OrganizationDao;
-import com.app.dto.OrgAddDto;
+import com.app.dto.organization.OrgAddDto;
+import com.app.dto.organization.OrgAddHeadDto;
 import com.app.entities.primary.Organization;
 import com.app.service.OrganizationService;
 
@@ -20,6 +22,8 @@ public class OrganizationServiceImpl implements OrganizationService{
 	private ModelMapper mapper;
 	@Autowired
 	private OrganizationDao orgDao;
+	@Autowired
+	private HeadDao headDao;
 	
 	@Override
 	public Organization addOrganization(OrgAddDto org) {
@@ -30,5 +34,12 @@ public class OrganizationServiceImpl implements OrganizationService{
 	@Override
 	public List<Organization> getOrgList() {
 		return orgDao.findAll();
+	}
+
+	@Override
+	public Organization addHead(OrgAddHeadDto orgDto) {
+		Organization orgEnt=orgDao.findById(orgDto.getOrgId()).orElseThrow();
+		orgEnt.setHead(headDao.findById(orgDto.getHeadId()).orElseThrow());
+		return orgEnt;
 	}
 }

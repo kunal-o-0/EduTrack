@@ -1,16 +1,14 @@
-package com.app.dto;
+package com.app.dto.organization;
 
 import com.app.entities.secondary.Address;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@Data
 public class OrgAddDto {
 	private String orgName;
 	private String orgType;

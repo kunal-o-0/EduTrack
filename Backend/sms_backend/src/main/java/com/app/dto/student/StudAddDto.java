@@ -1,11 +1,11 @@
-package com.app.dto;
+package com.app.dto.student;
 
 import com.app.entities.secondary.Address;
 
 import lombok.Data;
 
 @Data
-public class StudentDto {
+public class StudAddDto {
 	private String studFName;
 	private String studMName;
 	private String studLName;
@@ -17,4 +17,6 @@ public class StudentDto {
 	private String studAadhaarNo;
 	private String email;
 	private String password;
+	private long orgId;
+	private long courseId;
 }

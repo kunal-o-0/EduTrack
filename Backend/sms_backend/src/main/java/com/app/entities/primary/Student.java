@@ -62,7 +62,7 @@ public class Student {
 	@Column(name="aadhaar_no",length = 20)
 	private String studAadhaarNo;
 	
-	@Column(length = 60)
+	@Column(length = 60,unique = true)
 	private String email;
 	
 	@Column(length = 90)

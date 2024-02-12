@@ -49,7 +49,7 @@ public class Faculty {
 	@Column(name="qualification",length = 50)
 	private String facQualif;
 	
-	@Column(length = 60)
+	@Column(length = 60,unique = true)
 	private String email;
 	
 	@Column(length = 90)

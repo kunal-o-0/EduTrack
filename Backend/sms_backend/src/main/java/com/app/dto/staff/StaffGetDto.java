@@ -1,12 +1,12 @@
-package com.app.dto;
+package com.app.dto.staff;
 
-import com.app.entities.primary.Organization;
 import com.app.entities.secondary.Address;
 
 import lombok.Data;
 
 @Data
-public class StaffAddDto {
+public class StaffGetDto {
+	private long staffId;
 	private String staffFName;
 	private String staffMName;
 	private String staffLName;

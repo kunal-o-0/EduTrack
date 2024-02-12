@@ -1,5 +1,6 @@
 package com.app.entities.primary;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -45,13 +46,12 @@ public class Head {
 	@Column(name="qualification",length = 50)
 	private String headQualif;
 	
-	@Column(length = 60)
+	@Column(length = 60,unique = true)
 	private String email;
 	
 	@Column(length = 90)
 	private String password;
 	
-	@OneToOne
-	@JoinColumn(name = "org_id",nullable = false)
+	@OneToOne(mappedBy = "head",cascade = CascadeType.REFRESH)
 	private Organization organization;
 }

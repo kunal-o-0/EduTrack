@@ -47,7 +47,7 @@ public class Staff {
 	@Column(name="category",length = 50)
 	private String staffCategory;
 	
-	@Column(length = 60)
+	@Column(length = 60,unique = true)
 	private String email;
 	
 	@Column(length = 90)

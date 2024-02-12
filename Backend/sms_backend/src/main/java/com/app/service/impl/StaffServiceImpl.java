@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.app.dao.OrganizationDao;
 import com.app.dao.StaffDao;
-import com.app.dto.StaffAddDto;
+import com.app.dto.staff.StaffAddDto;
 import com.app.entities.primary.Staff;
 import com.app.service.StaffService;
 

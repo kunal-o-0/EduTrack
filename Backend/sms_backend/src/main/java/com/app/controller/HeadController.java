@@ -12,35 +12,35 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.app.dto.staff.StaffAddDto;
-import com.app.dto.staff.StaffGetDto;
-import com.app.entities.primary.Staff;
-import com.app.service.StaffService;
+import com.app.dto.head.HeadAddDto;
+import com.app.dto.head.HeadGetDto;
+import com.app.service.HeadService;
 
 @RestController
-@RequestMapping("/staff")
-public class StaffController {
+@RequestMapping("/head")
+public class HeadController {
 	@Autowired
 	private ModelMapper mapper;
 	@Autowired
-	private StaffService staffService;
+	private HeadService headService;
 	
 	@GetMapping
-	public List<StaffGetDto> getStaffList()
+	public List<HeadGetDto> getHeadList()
 	{
-		return staffService.getStaffList()
+		return headService.getHeadList()
 							.stream()
-							.map((staffEnt)->{
-												StaffGetDto staffDto=mapper.map(staffEnt, StaffGetDto.class);
-												staffDto.setOrgId(staffEnt.getOrganization().getOrgId());
-												return staffDto;
+							.map((headEnt)->
+											{
+												HeadGetDto headDto=mapper.map(headEnt, HeadGetDto.class);
+												headDto.setOrgId(headEnt.getOrganization().getOrgId());
+												return headDto;
 											})
 							.collect(Collectors.toList());
 	}
 	
-	@PostMapping("/{orgId}")
-	public void addStaff(@PathVariable Long orgId,@RequestBody StaffAddDto staffDto)
+	@PostMapping("{orgId}")
+	public String addHead(@PathVariable Long orgId,@RequestBody HeadAddDto headDto)
 	{
-		Staff staffEnt= staffService.addStaff(orgId, staffDto);
+		return headService.addHead(orgId ,headDto)!=null?"Success":"Failed";
 	}
 }
