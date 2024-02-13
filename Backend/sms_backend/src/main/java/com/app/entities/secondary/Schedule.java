@@ -1,5 +1,6 @@
 package com.app.entities.secondary;
 
+import java.sql.Time;
 import java.util.Date;
 import java.util.List;
 
@@ -30,7 +31,7 @@ public class Schedule {
 	private Date schedDate;
 	
 	@Column(name="time",length = 20)
-	private String schedTime;
+	private Time schedTime;
 	
 	@OneToMany(mappedBy = "schedule")
 	private List<Attendance> attendances;
