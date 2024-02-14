@@ -12,8 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.app.dto.faculty.FacAddDto;
-import com.app.dto.faculty.FacGetDto;
+import com.app.dto.faculty.FacDto;
 import com.app.entities.primary.Faculty;
 import com.app.service.FacultyService;
 
@@ -26,13 +25,13 @@ public class FacultyController {
 	private FacultyService facService;
 	
 	@GetMapping
-	public List<FacGetDto> getFacultyList()
+	public List<FacDto> getFacultyList()
 	{
 		return facService.getFacultyList()
 							.stream()
 							.map((facEnt)->
 											{
-												FacGetDto facDto=mapper.map(facEnt, FacGetDto.class);
+												FacDto facDto=mapper.map(facEnt, FacDto.class);
 												facDto.setOrgId(facEnt.getFacId());
 												return facDto;
 											})
@@ -40,7 +39,7 @@ public class FacultyController {
 	}
 	
 	@PostMapping("/{orgId}")
-	public void addFaculty(@PathVariable Long orgId,@RequestBody FacAddDto facDto)
+	public void addFaculty(@PathVariable Long orgId,@RequestBody FacDto facDto)
 	{
 		Faculty facEnt=facService.addFaculty(orgId, facDto);
 	}

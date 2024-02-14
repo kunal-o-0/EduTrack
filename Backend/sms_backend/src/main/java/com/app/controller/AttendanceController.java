@@ -12,8 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.app.dto.attendance.AttendAddDto;
-import com.app.dto.attendance.AttendGetDto;
+import com.app.dto.attendance.AttendDto;
 import com.app.entities.secondary.Attendance;
 import com.app.service.AttendanceService;
 
@@ -26,13 +25,13 @@ public class AttendanceController {
 	private AttendanceService attendService;
 	
 	@GetMapping
-	public List<AttendGetDto> getAttendList()
+	public List<AttendDto> getAttendList()
 	{
 		return attendService.getAttendList()
 							.stream()
 							.map((attendEnt)->
 												{
-													AttendGetDto attendDto=mapper.map(attendEnt, AttendGetDto.class);
+													AttendDto attendDto=mapper.map(attendEnt, AttendDto.class);
 													attendDto.setStudId(attendEnt.getStudent().getStudId());
 													attendDto.setSchedId(attendEnt.getSchedule().getSchedId());
 													return attendDto;
@@ -41,7 +40,7 @@ public class AttendanceController {
 	}
 	
 	@PostMapping("/{studId}/{schedId}")
-	public void addAttend(@PathVariable("studId") Long studId,@PathVariable("schedId") Long schedId,@RequestBody AttendAddDto attendDto)
+	public void addAttend(@PathVariable("studId") Long studId,@PathVariable("schedId") Long schedId,@RequestBody AttendDto attendDto)
 	{
 		Attendance attendEnt=attendService.addAttend(studId, schedId, attendDto);
 	}

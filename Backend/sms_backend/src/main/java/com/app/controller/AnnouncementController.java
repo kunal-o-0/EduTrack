@@ -12,8 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.app.dto.announcement.AnnounAddDto;
-import com.app.dto.announcement.AnnounGetDto;
+import com.app.dto.announcement.AnnounDto;
 import com.app.entities.secondary.Announcement;
 import com.app.service.AnnouncementService;
 
@@ -26,13 +25,13 @@ public class AnnouncementController {
 	private AnnouncementService announService;
 	
 	@GetMapping
-	public List<AnnounGetDto> getAnnounList()
+	public List<AnnounDto> getAnnounList()
 	{
 		return announService.getAnnList()
 							.stream()
 							.map((announEnt)->
 												{
-													AnnounGetDto announDto=mapper.map(announEnt, AnnounGetDto.class);
+													AnnounDto announDto=mapper.map(announEnt, AnnounDto.class);
 													announDto.setOrgId(announEnt.getOrganization().getOrgId());
 													return announDto;
 												})
@@ -40,7 +39,7 @@ public class AnnouncementController {
 	}
 	
 	@PostMapping("/{orgId}")
-	public void addAnnoun(@PathVariable Long orgId,@RequestBody AnnounAddDto announDto)
+	public void addAnnoun(@PathVariable Long orgId,@RequestBody AnnounDto announDto)
 	{
 		Announcement announEnt=announService.addAnnoun(orgId, announDto);
 	}

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.app.dao.OrganizationDao;
 import com.app.dao.StaffDao;
-import com.app.dto.staff.StaffAddDto;
+import com.app.dto.staff.StaffDto;
 import com.app.entities.primary.Staff;
 import com.app.service.StaffService;
 
@@ -30,7 +30,7 @@ public class StaffServiceImpl implements StaffService{
 	}
 
 	@Override
-	public Staff addStaff(Long orgId,StaffAddDto staffDto) {
+	public Staff addStaff(Long orgId,StaffDto staffDto) {
 		Staff staffEnt=mapper.map(staffDto, Staff.class);
 		staffEnt.setOrganization(orgDao.findById(orgId).orElseThrow());
 		return staffDao.save(staffEnt);

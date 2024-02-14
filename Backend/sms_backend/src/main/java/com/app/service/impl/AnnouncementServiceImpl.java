@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.app.dao.AnnouncementDao;
 import com.app.dao.OrganizationDao;
-import com.app.dto.announcement.AnnounAddDto;
+import com.app.dto.announcement.AnnounDto;
 import com.app.entities.secondary.Announcement;
 import com.app.service.AnnouncementService;
 
@@ -29,7 +29,7 @@ public class AnnouncementServiceImpl implements AnnouncementService{
 		return announDao.findAll();
 	}
 	@Override
-	public Announcement addAnnoun(Long orgId,AnnounAddDto announDto) {
+	public Announcement addAnnoun(Long orgId,AnnounDto announDto) {
 		Announcement announEnt=mapper.map(announDto, Announcement.class);
 		announEnt.setOrganization(orgDao.findById(orgId).orElseThrow());
 		return announDao.save(announEnt);

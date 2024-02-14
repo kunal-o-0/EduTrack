@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import com.app.dao.CourseDao;
 import com.app.dao.OrganizationDao;
 import com.app.dao.StudentDao;
-import com.app.dto.student.StudAddDto;
+import com.app.dto.student.StudDto;
 import com.app.entities.primary.Organization;
 import com.app.entities.primary.Student;
 import com.app.service.StudentService;
@@ -34,7 +34,7 @@ public class StudentServiceImpl implements StudentService{
 	}
 
 	@Override
-	public Student addStudent(Long orgId,Long courseId,StudAddDto studDto) {
+	public Student addStudent(Long orgId,Long courseId,StudDto studDto) {
 		Student studEnt=mapper.map(studDto, Student.class);
 		studEnt.setOrganization(orgDao.findById(orgId).orElseThrow());
 		studEnt.setCourse(courseDao.findById(courseId).orElseThrow());

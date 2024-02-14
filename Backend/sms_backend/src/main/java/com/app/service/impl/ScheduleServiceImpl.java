@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.app.dao.ScheduleDao;
 import com.app.dao.SubjectDao;
-import com.app.dto.schedule.SchedAddDto;
+import com.app.dto.schedule.SchedDto;
 import com.app.entities.secondary.Schedule;
 import com.app.service.ScheduleService;
 
@@ -29,7 +29,7 @@ public class ScheduleServiceImpl implements ScheduleService{
 		return schedDao.findAll();
 	}
 	@Override
-	public Schedule addSched(Long subId, SchedAddDto schedDto) {
+	public Schedule addSched(Long subId, SchedDto schedDto) {
 		Schedule schedEnt=mapper.map(schedDto, Schedule.class);
 		schedEnt.setSubject(subDao.findById(subId).orElseThrow());
 		return schedDao.save(schedEnt);

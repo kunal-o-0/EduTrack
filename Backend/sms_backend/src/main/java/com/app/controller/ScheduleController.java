@@ -12,8 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.app.dto.schedule.SchedAddDto;
-import com.app.dto.schedule.SchedGetDto;
+import com.app.dto.schedule.SchedDto;
 import com.app.entities.secondary.Schedule;
 import com.app.service.ScheduleService;
 
@@ -26,13 +25,13 @@ public class ScheduleController {
 	private ScheduleService schedService;
 	
 	@GetMapping
-	public List<SchedGetDto> getSchedList()
+	public List<SchedDto> getSchedList()
 	{
 		return schedService.getSchedList()
 							.stream()
 							.map((schedEnt)->
 												{
-													SchedGetDto schedDto=mapper.map(schedEnt, SchedGetDto.class);
+													SchedDto schedDto=mapper.map(schedEnt, SchedDto.class);
 													schedDto.setSubId(schedEnt.getSubject().getSubId());
 													return schedDto;
 												})
@@ -40,7 +39,7 @@ public class ScheduleController {
 	}
 	
 	@PostMapping("/{subId}")
-	public void addSched(@PathVariable Long subId,@RequestBody SchedAddDto schedDto)
+	public void addSched(@PathVariable Long subId,@RequestBody SchedDto schedDto)
 	{
 		Schedule schedEnt=schedService.addSched(subId, schedDto);
 	}

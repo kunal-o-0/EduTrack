@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.app.dao.FacultyDao;
 import com.app.dao.OrganizationDao;
-import com.app.dto.faculty.FacAddDto;
+import com.app.dto.faculty.FacDto;
 import com.app.entities.primary.Faculty;
 import com.app.entities.primary.Organization;
 import com.app.service.FacultyService;
@@ -31,7 +31,7 @@ public class FacultyServiceImpl implements FacultyService{
 	}
 	
 	@Override
-	public Faculty addFaculty(Long orgId, FacAddDto facDto) {
+	public Faculty addFaculty(Long orgId, FacDto facDto) {
 		Faculty facEnt=mapper.map(facDto, Faculty.class);
 		facEnt.setOrganization(orgDao.findById(orgId).orElseThrow());
 		return facDao.save(facEnt);

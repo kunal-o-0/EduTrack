@@ -11,8 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.app.dto.course.CourseAddDto;
-import com.app.dto.course.CourseGetDto;
+import com.app.dto.course.CourseDto;
 import com.app.entities.secondary.Course;
 import com.app.service.CourseService;
 
@@ -25,20 +24,20 @@ public class CourseController {
 	private CourseService courseService;
 	
 	@GetMapping
-	public List<CourseGetDto> getCourseList()
+	public List<CourseDto> getCourseList()
 	{
 		return courseService.getCourseList()
 							.stream()
 							.map((courseEnt)->
 												{
-													CourseGetDto courseDto=mapper.map(courseEnt, CourseGetDto.class);
+													CourseDto courseDto=mapper.map(courseEnt, CourseDto.class);
 													return courseDto;
 												})
 							.collect(Collectors.toList());
 	}
 	
 	@PostMapping
-	public void addCourse(@RequestBody CourseAddDto courseDto)
+	public void addCourse(@RequestBody CourseDto courseDto)
 	{
 		courseService.addCourse(courseDto);
 	}

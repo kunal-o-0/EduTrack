@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import com.app.dao.AttendanceDao;
 import com.app.dao.ScheduleDao;
 import com.app.dao.StudentDao;
-import com.app.dto.attendance.AttendAddDto;
+import com.app.dto.attendance.AttendDto;
 import com.app.entities.secondary.Attendance;
 import com.app.service.AttendanceService;
 
@@ -32,7 +32,7 @@ public class AttendanceServiceImpl implements AttendanceService{
 		return attendDao.findAll();
 	}
 	@Override
-	public Attendance addAttend(Long studId, Long schedId, AttendAddDto attendDto) {
+	public Attendance addAttend(Long studId, Long schedId, AttendDto attendDto) {
 		Attendance attendEnt=mapper.map(attendDto, Attendance.class);
 		attendEnt.setStudent(studDao.findById(studId).orElseThrow());
 		attendEnt.setSchedule(schedDao.findById(schedId).orElseThrow());

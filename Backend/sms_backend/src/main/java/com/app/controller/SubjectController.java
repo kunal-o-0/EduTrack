@@ -12,8 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.app.dto.subject.SubAddDto;
-import com.app.dto.subject.SubGetDto;
+import com.app.dto.subject.SubDto;
 import com.app.entities.secondary.Subject;
 import com.app.service.SubjectService;
 
@@ -26,13 +25,13 @@ public class SubjectController {
 	private SubjectService subService;
 	
 	@GetMapping
-	public List<SubGetDto> getSubList()
+	public List<SubDto> getSubList()
 	{
 		return subService.getSubList()
 							.stream()
 							.map((subEnt)->
 											{
-												SubGetDto subDto=mapper.map(subEnt, SubGetDto.class);
+												SubDto subDto=mapper.map(subEnt, SubDto.class);
 												subDto.setCourseId(subEnt.getCourse().getCourseId());
 												return subDto;
 											})
@@ -40,7 +39,7 @@ public class SubjectController {
 	}
 	
 	@PostMapping("/{courseId}")
-	public void addSub(@PathVariable Long courseId,@RequestBody SubAddDto subDto)
+	public void addSub(@PathVariable Long courseId,@RequestBody SubDto subDto)
 	{
 		Subject subEnt=subService.addSub(courseId, subDto);
 	}

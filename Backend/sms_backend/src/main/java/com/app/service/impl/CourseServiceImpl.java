@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.app.dao.CourseDao;
-import com.app.dto.course.CourseAddDto;
+import com.app.dto.course.CourseDto;
 import com.app.entities.secondary.Course;
 import com.app.service.CourseService;
 
@@ -27,7 +27,7 @@ public class CourseServiceImpl implements CourseService{
 	}
 	
 	@Override
-	public Course addCourse(CourseAddDto courseDto) {
+	public Course addCourse(CourseDto courseDto) {
 		return courseDao.save(mapper.map(courseDto, Course.class));
 	}
 }

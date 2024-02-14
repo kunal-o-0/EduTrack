@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.app.dao.HeadDao;
 import com.app.dao.OrganizationDao;
-import com.app.dto.head.HeadAddDto;
+import com.app.dto.head.HeadDto;
 import com.app.entities.primary.Head;
 import com.app.entities.primary.Organization;
 import com.app.service.HeadService;
@@ -31,7 +31,7 @@ public class HeadServiceImpl implements HeadService{
 	}
 	
 	@Override
-	public Head addHead(Long orgId, HeadAddDto headDto) {
+	public Head addHead(Long orgId, HeadDto headDto) {
 		Head headEnt=mapper.map(headDto, Head.class);
 		Organization orgEnt= orgDao.findById(orgId).orElseThrow();
 		orgEnt.setHead(headEnt);

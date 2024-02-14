@@ -12,9 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.app.dto.organization.OrgAddDto;
+import com.app.dto.organization.OrgDto;
 import com.app.dto.organization.OrgAddHeadDto;
-import com.app.dto.organization.OrgGetDto;
 import com.app.entities.primary.Organization;
 import com.app.service.OrganizationService;
 
@@ -27,15 +26,20 @@ public class OrganizationController {
 	OrganizationService orgService;
 	
 	@GetMapping
-	public List<OrgGetDto> getOrgList()
+	public List<OrgDto> getOrgList()
 	{
 		return orgService.getOrgList().stream()
-										.map((orgEnt)-> mapper.map(orgEnt, OrgGetDto.class))
+										.map((orgEnt)->
+														{
+															OrgDto orgDto=mapper.map(orgEnt, OrgDto.class);
+															orgDto.setHeadId(orgEnt.getHead().getHeadId());
+															return orgDto;
+														})
 										.collect(Collectors.toList());
 	}
 	
 	@PostMapping
-	public void addOrg(@RequestBody OrgAddDto org)
+	public void addOrg(@RequestBody OrgDto org)
 	{
 		System.out.println(org.getOrgName());
 		Organization orgEnt= orgService.addOrganization(org);

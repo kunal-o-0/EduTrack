@@ -12,8 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.app.dto.student.StudAddDto;
-import com.app.dto.student.StudGetDto;
+import com.app.dto.student.StudDto;
 import com.app.entities.primary.Student;
 import com.app.service.CourseService;
 import com.app.service.StudentService;
@@ -27,23 +26,22 @@ public class StudentController {
 	private StudentService studService;
 	
 	@GetMapping
-	public List<StudGetDto> getStudentList()
+	public List<StudDto> getStudentList()
 	{
 		return studService.getStudentList()
 							.stream()
 							.map((studEnt)->
 											{
-												StudGetDto studDto=mapper.map(studEnt, StudGetDto.class);
+												StudDto studDto=mapper.map(studEnt, StudDto.class);
 												studDto.setOrgId(studEnt.getOrganization().getOrgId());
 												studDto.setCourseId(studEnt.getCourse().getCourseId());
-												//System.out.println("*************************************"+studEnt.getOrganization().getOrgName()+"***************************");
 												return studDto;
 											})
 							.collect(Collectors.toList());
 	}
 	
 	@PostMapping("/{orgId}/{courseId}")
-	public void addStudent(@PathVariable("orgId") Long orgId,@PathVariable("courseId") Long courseId, @RequestBody StudAddDto studDto)
+	public void addStudent(@PathVariable("orgId") Long orgId,@PathVariable("courseId") Long courseId, @RequestBody StudDto studDto)
 	{
 		Student studEnt=studService.addStudent(orgId,courseId, studDto);
 	}

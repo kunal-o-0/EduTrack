@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.app.dao.HeadDao;
 import com.app.dao.OrganizationDao;
-import com.app.dto.organization.OrgAddDto;
+import com.app.dto.organization.OrgDto;
 import com.app.dto.organization.OrgAddHeadDto;
 import com.app.entities.primary.Organization;
 import com.app.service.OrganizationService;
@@ -26,7 +26,7 @@ public class OrganizationServiceImpl implements OrganizationService{
 	private HeadDao headDao;
 	
 	@Override
-	public Organization addOrganization(OrgAddDto org) {
+	public Organization addOrganization(OrgDto org) {
 		Organization orgEnt=mapper.map(org, Organization.class);
 		return orgDao.save(orgEnt);
 	}

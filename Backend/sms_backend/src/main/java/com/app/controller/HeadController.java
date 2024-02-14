@@ -12,8 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.app.dto.head.HeadAddDto;
-import com.app.dto.head.HeadGetDto;
+import com.app.dto.head.HeadDto;
 import com.app.service.HeadService;
 
 @RestController
@@ -25,13 +24,13 @@ public class HeadController {
 	private HeadService headService;
 	
 	@GetMapping
-	public List<HeadGetDto> getHeadList()
+	public List<HeadDto> getHeadList()
 	{
 		return headService.getHeadList()
 							.stream()
 							.map((headEnt)->
 											{
-												HeadGetDto headDto=mapper.map(headEnt, HeadGetDto.class);
+												HeadDto headDto=mapper.map(headEnt, HeadDto.class);
 												headDto.setOrgId(headEnt.getOrganization().getOrgId());
 												return headDto;
 											})
@@ -39,7 +38,7 @@ public class HeadController {
 	}
 	
 	@PostMapping("{orgId}")
-	public String addHead(@PathVariable Long orgId,@RequestBody HeadAddDto headDto)
+	public String addHead(@PathVariable Long orgId,@RequestBody HeadDto headDto)
 	{
 		return headService.addHead(orgId ,headDto)!=null?"Success":"Failed";
 	}

@@ -5,7 +5,8 @@ import com.app.entities.secondary.Address;
 import lombok.Data;
 
 @Data
-public class StudAddDto {
+public class StudDto {
+	private long studId;
 	private String studFName;
 	private String studMName;
 	private String studLName;
