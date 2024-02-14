@@ -39,7 +39,7 @@ public class OrganizationServiceImpl implements OrganizationService{
 						.map((orgEnt)->
 										{
 											OrgDto orgDto=mapper.map(orgEnt, OrgDto.class);
-											orgDto.setHeadId(orgEnt.getHead().getHeadId());
+											orgDto.setHeadId(orgEnt.getHead()!=null?orgEnt.getHead().getHeadId():-1);
 											return orgDto;
 										})
 						.collect(Collectors.toList());
@@ -49,6 +49,7 @@ public class OrganizationServiceImpl implements OrganizationService{
 	public Organization addHead(OrgAddHeadDto orgDto) {
 		Organization orgEnt=orgDao.findById(orgDto.getOrgId()).orElseThrow();
 		orgEnt.setHead(headDao.findById(orgDto.getHeadId()).orElseThrow());
+		orgDao.save(orgEnt);
 		return orgEnt;
 	}
 }

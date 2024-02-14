@@ -33,7 +33,7 @@ public class HeadServiceImpl implements HeadService{
 						.map((headEnt)->
 										{
 											HeadDto headDto=mapper.map(headEnt, HeadDto.class);
-											headDto.setOrgId(headEnt.getOrganization().getOrgId());
+											headDto.setOrgId(headEnt.getOrganization()!=null?headEnt.getOrganization().getOrgId():-1);
 											return headDto;
 										})
 						.collect(Collectors.toList());
