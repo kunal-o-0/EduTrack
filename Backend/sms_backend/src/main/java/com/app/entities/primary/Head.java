@@ -52,6 +52,6 @@ public class Head {
 	@Column(length = 90)
 	private String password;
 	
-	@OneToOne(mappedBy = "head",cascade = CascadeType.REFRESH)
+	@OneToOne(mappedBy = "head",cascade = CascadeType.ALL)
 	private Organization organization;
 }
