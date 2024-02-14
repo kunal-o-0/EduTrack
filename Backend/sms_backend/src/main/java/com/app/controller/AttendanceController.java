@@ -27,16 +27,7 @@ public class AttendanceController {
 	@GetMapping
 	public List<AttendDto> getAttendList()
 	{
-		return attendService.getAttendList()
-							.stream()
-							.map((attendEnt)->
-												{
-													AttendDto attendDto=mapper.map(attendEnt, AttendDto.class);
-													attendDto.setStudId(attendEnt.getStudent().getStudId());
-													attendDto.setSchedId(attendEnt.getSchedule().getSchedId());
-													return attendDto;
-												})
-							.collect(Collectors.toList());
+		return attendService.getAttendList();
 	}
 	
 	@PostMapping("/{studId}/{schedId}")

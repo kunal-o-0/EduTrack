@@ -28,14 +28,7 @@ public class OrganizationController {
 	@GetMapping
 	public List<OrgDto> getOrgList()
 	{
-		return orgService.getOrgList().stream()
-										.map((orgEnt)->
-														{
-															OrgDto orgDto=mapper.map(orgEnt, OrgDto.class);
-															orgDto.setHeadId(orgEnt.getHead().getHeadId());
-															return orgDto;
-														})
-										.collect(Collectors.toList());
+		return orgService.getOrgList();
 	}
 	
 	@PostMapping

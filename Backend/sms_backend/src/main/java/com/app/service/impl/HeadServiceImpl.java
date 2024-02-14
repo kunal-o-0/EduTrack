@@ -1,6 +1,7 @@
 package com.app.service.impl;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
@@ -26,8 +27,16 @@ public class HeadServiceImpl implements HeadService{
 	private OrganizationDao orgDao;
 	
 	@Override
-	public List<Head> getHeadList() {
-		return headDao.findAll();
+	public List<HeadDto> getHeadList() {
+		return headDao.findAll()
+						.stream()
+						.map((headEnt)->
+										{
+											HeadDto headDto=mapper.map(headEnt, HeadDto.class);
+											headDto.setOrgId(headEnt.getOrganization().getOrgId());
+											return headDto;
+										})
+						.collect(Collectors.toList());
 	}
 	
 	@Override

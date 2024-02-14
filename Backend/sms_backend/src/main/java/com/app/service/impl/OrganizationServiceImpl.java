@@ -1,6 +1,7 @@
 package com.app.service.impl;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
@@ -32,8 +33,16 @@ public class OrganizationServiceImpl implements OrganizationService{
 	}
 
 	@Override
-	public List<Organization> getOrgList() {
-		return orgDao.findAll();
+	public List<OrgDto> getOrgList() {
+		return orgDao.findAll()
+						.stream()
+						.map((orgEnt)->
+										{
+											OrgDto orgDto=mapper.map(orgEnt, OrgDto.class);
+											orgDto.setHeadId(orgEnt.getHead().getHeadId());
+											return orgDto;
+										})
+						.collect(Collectors.toList());
 	}
 
 	@Override

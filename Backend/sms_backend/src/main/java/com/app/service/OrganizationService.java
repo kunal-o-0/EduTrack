@@ -9,6 +9,6 @@ import com.app.entities.primary.Organization;
 public interface OrganizationService
 {
 	Organization addOrganization(OrgDto org);
-	List<Organization> getOrgList();
+	List<OrgDto> getOrgList();
 	Organization addHead(OrgAddHeadDto orgDto);
 }

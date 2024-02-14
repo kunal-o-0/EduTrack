@@ -27,15 +27,7 @@ public class ScheduleController {
 	@GetMapping
 	public List<SchedDto> getSchedList()
 	{
-		return schedService.getSchedList()
-							.stream()
-							.map((schedEnt)->
-												{
-													SchedDto schedDto=mapper.map(schedEnt, SchedDto.class);
-													schedDto.setSubId(schedEnt.getSubject().getSubId());
-													return schedDto;
-												})
-							.collect(Collectors.toList());
+		return schedService.getSchedList();
 	}
 	
 	@PostMapping("/{subId}")

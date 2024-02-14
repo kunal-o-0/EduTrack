@@ -27,15 +27,7 @@ public class FacultyController {
 	@GetMapping
 	public List<FacDto> getFacultyList()
 	{
-		return facService.getFacultyList()
-							.stream()
-							.map((facEnt)->
-											{
-												FacDto facDto=mapper.map(facEnt, FacDto.class);
-												facDto.setOrgId(facEnt.getFacId());
-												return facDto;
-											})
-							.collect(Collectors.toList());
+		return facService.getFacultyList();
 	}
 	
 	@PostMapping("/{orgId}")

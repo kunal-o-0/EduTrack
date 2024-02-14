@@ -6,6 +6,6 @@ import com.app.dto.attendance.AttendDto;
 import com.app.entities.secondary.Attendance;
 
 public interface AttendanceService {
-	List<Attendance> getAttendList();
+	List<AttendDto> getAttendList();
 	Attendance addAttend(Long studId,Long schedId,AttendDto attendDto);
 }

@@ -27,15 +27,7 @@ public class FeesController {
 	@GetMapping
 	public List<FeesDto> getFeesList()
 	{
-		return feesService.getFeesList()
-							.stream()
-							.map((feesEnt)->
-												{
-													FeesDto feesDto=mapper.map(feesEnt, FeesDto.class);
-													feesDto.setStudId(feesEnt.getStudent().getStudId());
-													return feesDto;
-												})
-							.collect(Collectors.toList());
+		return feesService.getFeesList();
 	}
 	
 	@PostMapping("/{studId}")

@@ -27,15 +27,7 @@ public class TransactionController {
 	@GetMapping
 	public List<TransDto> getTransList()
 	{
-		return transService.getTransList()
-							.stream()
-							.map((transEnt)->
-												{
-													TransDto transDto=mapper.map(transEnt, TransDto.class);
-													transDto.setFeesId(transEnt.getFees().getFeesId());
-													return transDto;
-												})
-							.collect(Collectors.toList());
+		return transService.getTransList();
 	}
 	
 	@PostMapping("{feesId}")

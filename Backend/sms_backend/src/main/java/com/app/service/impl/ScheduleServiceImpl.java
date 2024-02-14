@@ -1,6 +1,7 @@
 package com.app.service.impl;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
@@ -25,8 +26,16 @@ public class ScheduleServiceImpl implements ScheduleService{
 	private SubjectDao subDao;
 	
 	@Override
-	public List<Schedule> getSchedList() {
-		return schedDao.findAll();
+	public List<SchedDto> getSchedList() {
+		return schedDao.findAll()
+						.stream()
+						.map((schedEnt)->
+											{
+												SchedDto schedDto=mapper.map(schedEnt, SchedDto.class);
+												schedDto.setSubId(schedEnt.getSubject().getSubId());
+												return schedDto;
+											})
+						.collect(Collectors.toList());
 	}
 	@Override
 	public Schedule addSched(Long subId, SchedDto schedDto) {

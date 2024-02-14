@@ -1,6 +1,7 @@
 package com.app.service.impl;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
@@ -26,8 +27,16 @@ public class FacultyServiceImpl implements FacultyService{
 	private OrganizationDao orgDao;
 	
 	@Override
-	public List<Faculty> getFacultyList() {
-		return facDao.findAll();
+	public List<FacDto> getFacultyList() {
+		return facDao.findAll()
+						.stream()
+						.map((facEnt)->
+										{
+											FacDto facDto=mapper.map(facEnt, FacDto.class);
+											facDto.setOrgId(facEnt.getFacId());
+											return facDto;
+										})
+						.collect(Collectors.toList());
 	}
 	
 	@Override

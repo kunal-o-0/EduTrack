@@ -26,14 +26,7 @@ public class CourseController {
 	@GetMapping
 	public List<CourseDto> getCourseList()
 	{
-		return courseService.getCourseList()
-							.stream()
-							.map((courseEnt)->
-												{
-													CourseDto courseDto=mapper.map(courseEnt, CourseDto.class);
-													return courseDto;
-												})
-							.collect(Collectors.toList());
+		return courseService.getCourseList();
 	}
 	
 	@PostMapping

@@ -1,6 +1,7 @@
 package com.app.service.impl;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
@@ -25,8 +26,16 @@ public class AnnouncementServiceImpl implements AnnouncementService{
 	private OrganizationDao orgDao;
 	
 	@Override
-	public List<Announcement> getAnnList() {
-		return announDao.findAll();
+	public List<AnnounDto> getAnnList() {
+		return announDao.findAll()
+						.stream()
+						.map((announEnt)->
+											{
+												AnnounDto announDto=mapper.map(announEnt, AnnounDto.class);
+												announDto.setOrgId(announEnt.getOrganization().getOrgId());
+												return announDto;
+											})
+						.collect(Collectors.toList());
 	}
 	@Override
 	public Announcement addAnnoun(Long orgId,AnnounDto announDto) {

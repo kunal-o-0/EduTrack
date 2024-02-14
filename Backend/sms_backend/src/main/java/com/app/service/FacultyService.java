@@ -6,6 +6,6 @@ import com.app.dto.faculty.FacDto;
 import com.app.entities.primary.Faculty;
 
 public interface FacultyService {
-	List<Faculty> getFacultyList();
+	List<FacDto> getFacultyList();
 	Faculty addFaculty(Long orgId,FacDto facDto);
 }

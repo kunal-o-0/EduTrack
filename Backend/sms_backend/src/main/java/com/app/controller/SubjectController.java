@@ -27,15 +27,7 @@ public class SubjectController {
 	@GetMapping
 	public List<SubDto> getSubList()
 	{
-		return subService.getSubList()
-							.stream()
-							.map((subEnt)->
-											{
-												SubDto subDto=mapper.map(subEnt, SubDto.class);
-												subDto.setCourseId(subEnt.getCourse().getCourseId());
-												return subDto;
-											})
-							.collect(Collectors.toList());
+		return subService.getSubList();
 	}
 	
 	@PostMapping("/{courseId}")

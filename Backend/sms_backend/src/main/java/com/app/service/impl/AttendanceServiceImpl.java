@@ -1,6 +1,7 @@
 package com.app.service.impl;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
@@ -28,8 +29,17 @@ public class AttendanceServiceImpl implements AttendanceService{
 	private ScheduleDao schedDao;
 	
 	@Override
-	public List<Attendance> getAttendList() {
-		return attendDao.findAll();
+	public List<AttendDto> getAttendList() {
+		return attendDao.findAll()
+						.stream()
+						.map((attendEnt)->
+											{
+												AttendDto attendDto=mapper.map(attendEnt, AttendDto.class);
+												attendDto.setStudId(attendEnt.getStudent().getStudId());
+												attendDto.setSchedId(attendEnt.getSchedule().getSchedId());
+												return attendDto;
+											})
+						.collect(Collectors.toList());
 	}
 	@Override
 	public Attendance addAttend(Long studId, Long schedId, AttendDto attendDto) {

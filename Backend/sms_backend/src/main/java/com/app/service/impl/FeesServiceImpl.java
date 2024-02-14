@@ -1,6 +1,7 @@
 package com.app.service.impl;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
@@ -25,8 +26,16 @@ public class FeesServiceImpl implements FeesService{
 	private StudentDao studDao;
 	
 	@Override
-	public List<Fees> getFeesList() {
-		return feesDao.findAll();
+	public List<FeesDto> getFeesList() {
+		return feesDao.findAll()
+						.stream()
+						.map((feesEnt)->
+											{
+												FeesDto feesDto=mapper.map(feesEnt, FeesDto.class);
+												feesDto.setStudId(feesEnt.getStudent().getStudId());
+												return feesDto;
+											})
+						.collect(Collectors.toList());
 	}
 	@Override
 	public Fees addFees(Long studId, FeesDto feesDto) {

@@ -27,16 +27,7 @@ public class PerformanceController {
 	@GetMapping
 	public List<PerforDto> getPerforList()
 	{
-		return perforService.getPerforList()
-							.stream()
-							.map((perforEnt)->
-												{
-													PerforDto perforDto=mapper.map(perforEnt, PerforDto.class);
-													perforDto.setStudId(perforEnt.getStudent().getStudId());
-													perforDto.setSubId(perforEnt.getSubject().getSubId());
-													return perforDto;
-												})
-							.collect(Collectors.toList());
+		return perforService.getPerforList();
 	}
 	
 	@PostMapping("/{studId}/{subId}")

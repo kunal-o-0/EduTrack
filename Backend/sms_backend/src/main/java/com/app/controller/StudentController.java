@@ -28,16 +28,7 @@ public class StudentController {
 	@GetMapping
 	public List<StudDto> getStudentList()
 	{
-		return studService.getStudentList()
-							.stream()
-							.map((studEnt)->
-											{
-												StudDto studDto=mapper.map(studEnt, StudDto.class);
-												studDto.setOrgId(studEnt.getOrganization().getOrgId());
-												studDto.setCourseId(studEnt.getCourse().getCourseId());
-												return studDto;
-											})
-							.collect(Collectors.toList());
+		return studService.getStudentList();
 	}
 	
 	@PostMapping("/{orgId}/{courseId}")

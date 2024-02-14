@@ -1,6 +1,7 @@
 package com.app.service.impl;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
@@ -25,8 +26,15 @@ public class StaffServiceImpl implements StaffService{
 	
 	
 	@Override
-	public List<Staff> getStaffList() {
-		return staffDao.findAll();
+	public List<StaffDto> getStaffList() {
+		return staffDao.findAll()
+						.stream()
+						.map((staffEnt)->{
+											StaffDto staffDto=mapper.map(staffEnt, StaffDto.class);
+											staffDto.setOrgId(staffEnt.getOrganization().getOrgId());
+											return staffDto;
+										})
+						.collect(Collectors.toList());
 	}
 
 	@Override

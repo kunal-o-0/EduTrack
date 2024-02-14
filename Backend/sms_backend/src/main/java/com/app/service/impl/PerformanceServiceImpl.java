@@ -1,6 +1,7 @@
 package com.app.service.impl;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
@@ -28,8 +29,17 @@ public class PerformanceServiceImpl implements PerformanceService{
 	private SubjectDao subDao;
 	
 	@Override
-	public List<Performance> getPerforList() {
-		return perforDao.findAll();
+	public List<PerforDto> getPerforList() {
+		return perforDao.findAll()
+							.stream()
+							.map((perforEnt)->
+												{
+													PerforDto perforDto=mapper.map(perforEnt, PerforDto.class);
+													perforDto.setStudId(perforEnt.getStudent().getStudId());
+													perforDto.setSubId(perforEnt.getSubject().getSubId());
+													return perforDto;
+												})
+							.collect(Collectors.toList());
 	}
 	
 	@Override

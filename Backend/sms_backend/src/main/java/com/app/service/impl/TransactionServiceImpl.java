@@ -1,6 +1,7 @@
 package com.app.service.impl;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
@@ -25,8 +26,16 @@ public class TransactionServiceImpl implements TransactionService{
 	private FeesDao feesDao;
 	
 	@Override
-	public List<Transaction> getTransList() {
-		return transDao.findAll();
+	public List<TransDto> getTransList() {
+		return transDao.findAll()
+						.stream()
+						.map((transEnt)->
+											{
+												TransDto transDto=mapper.map(transEnt, TransDto.class);
+												transDto.setFeesId(transEnt.getFees().getFeesId());
+												return transDto;
+											})
+						.collect(Collectors.toList());
 	}
 	@Override
 	public Transaction addTrans(Long feesId, TransDto transDto) {

@@ -6,6 +6,6 @@ import com.app.dto.course.CourseDto;
 import com.app.entities.secondary.Course;
 
 public interface CourseService {
-	List<Course> getCourseList();
+	List<CourseDto> getCourseList();
 	Course addCourse(CourseDto courseDto);
 }

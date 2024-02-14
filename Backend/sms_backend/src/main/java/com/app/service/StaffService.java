@@ -6,7 +6,7 @@ import com.app.dto.staff.StaffDto;
 import com.app.entities.primary.Staff;
 
 public interface StaffService {
-	List<Staff> getStaffList();
+	List<StaffDto> getStaffList();
 	
 	Staff addStaff(Long orgId,StaffDto staffDto);
 }

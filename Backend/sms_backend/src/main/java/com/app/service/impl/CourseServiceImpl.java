@@ -1,6 +1,7 @@
 package com.app.service.impl;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
@@ -22,8 +23,15 @@ public class CourseServiceImpl implements CourseService{
 	private CourseDao courseDao;
 	
 	@Override
-	public List<Course> getCourseList() {
-		return courseDao.findAll();
+	public List<CourseDto> getCourseList() {
+		return courseDao.findAll()
+						.stream()
+						.map((courseEnt)->
+											{
+												CourseDto courseDto=mapper.map(courseEnt, CourseDto.class);
+												return courseDto;
+											})
+						.collect(Collectors.toList());
 	}
 	
 	@Override

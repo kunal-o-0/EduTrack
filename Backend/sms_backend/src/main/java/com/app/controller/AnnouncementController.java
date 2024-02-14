@@ -27,15 +27,7 @@ public class AnnouncementController {
 	@GetMapping
 	public List<AnnounDto> getAnnounList()
 	{
-		return announService.getAnnList()
-							.stream()
-							.map((announEnt)->
-												{
-													AnnounDto announDto=mapper.map(announEnt, AnnounDto.class);
-													announDto.setOrgId(announEnt.getOrganization().getOrgId());
-													return announDto;
-												})
-							.collect(Collectors.toList());
+		return announService.getAnnList();
 	}
 	
 	@PostMapping("/{orgId}")

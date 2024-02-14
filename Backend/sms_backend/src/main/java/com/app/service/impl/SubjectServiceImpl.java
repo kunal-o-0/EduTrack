@@ -1,6 +1,7 @@
 package com.app.service.impl;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
@@ -25,8 +26,16 @@ public class SubjectServiceImpl implements SubjectService{
 	private CourseDao courseDao;
 	
 	@Override
-	public List<Subject> getSubList() {
-		return subDao.findAll();
+	public List<SubDto> getSubList() {
+		return subDao.findAll()
+						.stream()
+						.map((subEnt)->
+										{
+											SubDto subDto=mapper.map(subEnt, SubDto.class);
+											subDto.setCourseId(subEnt.getCourse().getCourseId());
+											return subDto;
+										})
+						.collect(Collectors.toList());
 	}
 	@Override
 	public Subject addSub(Long courseId, SubDto subDto) {

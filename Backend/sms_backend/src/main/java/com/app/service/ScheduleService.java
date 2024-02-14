@@ -6,6 +6,6 @@ import com.app.dto.schedule.SchedDto;
 import com.app.entities.secondary.Schedule;
 
 public interface ScheduleService {
-	List<Schedule> getSchedList();
+	List<SchedDto> getSchedList();
 	Schedule addSched(Long subId,SchedDto schedDto);
 }

@@ -6,6 +6,6 @@ import com.app.dto.announcement.AnnounDto;
 import com.app.entities.secondary.Announcement;
 
 public interface AnnouncementService {
-	List<Announcement> getAnnList();
+	List<AnnounDto> getAnnList();
 	Announcement addAnnoun(Long orgId,AnnounDto announDto);
 }

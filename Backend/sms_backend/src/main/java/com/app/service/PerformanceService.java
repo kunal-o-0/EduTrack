@@ -6,6 +6,6 @@ import com.app.dto.performance.PerforDto;
 import com.app.entities.secondary.Performance;
 
 public interface PerformanceService {
-	List<Performance> getPerforList();
+	List<PerforDto> getPerforList();
 	Performance addPerfor(Long studId,Long subId,PerforDto perforDto);
 }

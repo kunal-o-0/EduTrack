@@ -27,14 +27,7 @@ public class StaffController {
 	@GetMapping
 	public List<StaffDto> getStaffList()
 	{
-		return staffService.getStaffList()
-							.stream()
-							.map((staffEnt)->{
-												StaffDto staffDto=mapper.map(staffEnt, StaffDto.class);
-												staffDto.setOrgId(staffEnt.getOrganization().getOrgId());
-												return staffDto;
-											})
-							.collect(Collectors.toList());
+		return staffService.getStaffList();
 	}
 	
 	@PostMapping("/{orgId}")
