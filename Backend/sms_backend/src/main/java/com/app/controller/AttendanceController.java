@@ -37,10 +37,10 @@ public class AttendanceController {
 		return attendService.getAttendList();
 	}
 	
-	@PostMapping("/{studId}/{schedId}")
-	public ResponseEntity<?> addAttend(@PathVariable("studId") Long studId,@PathVariable("schedId") Long schedId,@RequestBody AttendDto attendDto)
+	@PostMapping
+	public ResponseEntity<?> addAttend(@RequestBody AttendDto attendDto)
 	{
-		Attendance attendEnt=attendService.addAttend(studId, schedId, attendDto);
+		Attendance attendEnt=attendService.addAttend(attendDto.getStudId(), attendDto.getSchedId(), attendDto);
 		return ResponseEntity.status(HttpStatus.CREATED)
 				.body(new ResponseText(HttpStatus.CREATED.value(),"Successfully created"));
 	}

@@ -38,10 +38,10 @@ public class SubjectController {
 		return subService.getSubList();
 	}
 	
-	@PostMapping("/{courseId}")
-	public ResponseEntity<?> addSub(@PathVariable Long courseId,@RequestBody SubDto subDto)
+	@PostMapping
+	public ResponseEntity<?> addSub(@RequestBody SubDto subDto)
 	{
-		Subject subEnt=subService.addSub(courseId, subDto);
+		Subject subEnt=subService.addSub(subDto.getCourseId(), subDto);
 		return ResponseEntity.status(HttpStatus.CREATED)
 				.body(new ResponseText(HttpStatus.CREATED.value(),"Successfully created"));
 	}
