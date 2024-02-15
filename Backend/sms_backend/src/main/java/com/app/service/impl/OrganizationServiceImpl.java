@@ -13,6 +13,7 @@ import com.app.dao.HeadDao;
 import com.app.dao.OrganizationDao;
 import com.app.dto.organization.OrgDto;
 import com.app.dto.organization.OrgAddHeadDto;
+import com.app.entities.primary.Head;
 import com.app.entities.primary.Organization;
 import com.app.service.OrganizationService;
 
@@ -27,8 +28,8 @@ public class OrganizationServiceImpl implements OrganizationService{
 	private HeadDao headDao;
 	
 	@Override
-	public Organization addOrganization(OrgDto org) {
-		Organization orgEnt=mapper.map(org, Organization.class);
+	public Organization addOrganization(OrgDto orgDto) {
+		Organization orgEnt=mapper.map(orgDto, Organization.class);
 		return orgDao.save(orgEnt);
 	}
 
@@ -47,9 +48,29 @@ public class OrganizationServiceImpl implements OrganizationService{
 
 	@Override
 	public Organization addHead(OrgAddHeadDto orgDto) {
-		Organization orgEnt=orgDao.findById(orgDto.getOrgId()).orElseThrow();
-		orgEnt.setHead(headDao.findById(orgDto.getHeadId()).orElseThrow());
+		Organization orgEnt=orgDao.findById(orgDto.getOrgId())
+									.orElseThrow();
+		orgEnt.setHead(headDao.findById(orgDto.getHeadId())
+								.orElseThrow());
 		orgDao.save(orgEnt);
 		return orgEnt;
+	}
+
+	@Override
+	public Organization updateOrg(Long orgId,OrgDto orgDto) {
+		orgDto.setOrgId(orgId);
+		Organization orgEnt=mapper.map(orgDto, Organization.class);
+		Head head=orgDao.findById(orgId)
+						.orElseThrow()
+						.getHead();
+		orgEnt.setHead(head);
+		return orgDao.save(orgEnt);
+	}
+
+	@Override
+	public void deleteOrg(Long orgId) {
+		Organization orgEnt=orgDao.findById(orgId).orElseThrow();
+		orgDao.delete(orgEnt);
+		orgDao.flush();
 	}
 }
