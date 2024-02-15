@@ -37,10 +37,26 @@ public class ScheduleServiceImpl implements ScheduleService{
 											})
 						.collect(Collectors.toList());
 	}
+	
 	@Override
 	public Schedule addSched(Long subId, SchedDto schedDto) {
 		Schedule schedEnt=mapper.map(schedDto, Schedule.class);
 		schedEnt.setSubject(subDao.findById(subId).orElseThrow());
 		return schedDao.save(schedEnt);
+	}
+	
+	@Override
+	public Schedule updateSched(Long schedId, SchedDto schedDto) {
+		Schedule schedOld=schedDao.findById(schedId).orElseThrow();
+		Schedule schedNew=mapper.map(schedDto, Schedule.class);
+		schedNew.setSchedId(schedOld.getSchedId());
+		schedNew.setSubject(schedOld.getSubject());
+		return schedDao.save(schedNew);
+	}
+	
+	@Override
+	public void deleteSched(Long schedId) {
+		schedDao.deleteById(schedId);
+		schedDao.flush();
 	}
 }

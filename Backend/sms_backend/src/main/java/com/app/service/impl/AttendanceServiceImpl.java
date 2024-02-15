@@ -41,11 +41,27 @@ public class AttendanceServiceImpl implements AttendanceService{
 											})
 						.collect(Collectors.toList());
 	}
+	
 	@Override
 	public Attendance addAttend(Long studId, Long schedId, AttendDto attendDto) {
 		Attendance attendEnt=mapper.map(attendDto, Attendance.class);
 		attendEnt.setStudent(studDao.findById(studId).orElseThrow());
 		attendEnt.setSchedule(schedDao.findById(schedId).orElseThrow());
 		return attendDao.save(attendEnt);
+	}
+	
+	@Override
+	public Attendance updateAttend(Long attendId, AttendDto attendDto) {
+		Attendance attendNew=mapper.map(attendDto, Attendance.class);
+		Attendance attendOld=attendDao.findById(attendId).orElseThrow();
+		attendNew.setAttendId(attendOld.getAttendId());
+		attendNew.setStudent(attendOld.getStudent());
+		attendNew.setSchedule(attendOld.getSchedule());
+		return attendDao.save(attendNew);
+	}
+	
+	@Override
+	public void deleteAttend(Long attendId) {
+		
 	}
 }

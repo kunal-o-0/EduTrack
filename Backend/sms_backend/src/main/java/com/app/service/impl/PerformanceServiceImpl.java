@@ -49,4 +49,20 @@ public class PerformanceServiceImpl implements PerformanceService{
 		perforEnt.setSubject(subDao.findById(subId).orElseThrow());
 		return perforDao.save(perforEnt);
 	}
+
+	@Override
+	public Performance updatePerfor(Long perforId, PerforDto perforDto) {
+		Performance perforOld=perforDao.findById(perforId).orElseThrow();
+		Performance perforNew=mapper.map(perforDto, Performance.class);
+		perforNew.setPerfId(perforOld.getPerfId());
+		perforNew.setStudent(perforOld.getStudent());
+		perforNew.setSubject(perforOld.getSubject());
+		return perforDao.save(perforNew);
+	}
+
+	@Override
+	public void deletePerfor(Long perforId) {
+		perforDao.deleteById(perforId);
+		perforDao.flush();
+	}
 }

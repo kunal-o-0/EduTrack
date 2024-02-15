@@ -44,4 +44,19 @@ public class StaffServiceImpl implements StaffService{
 		return staffDao.save(staffEnt);
 	}
 
+	@Override
+	public Staff updateStaff(Long staffId, StaffDto staffDto) {
+		Staff staffOld=staffDao.findById(staffId).orElseThrow();
+		Staff staffNew=mapper.map(staffDto, Staff.class);
+		staffNew.setStaffId(staffOld.getStaffId());
+		staffNew.setOrganization(staffOld.getOrganization());
+		return staffDao.save(staffNew);
+	}
+
+	@Override
+	public void deleteStaff(Long staffId) {
+		staffDao.deleteById(staffId);
+		staffDao.flush();
+	}
+
 }

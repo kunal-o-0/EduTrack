@@ -2,6 +2,8 @@ package com.app.dto.announcement;
 
 import java.sql.Timestamp;
 
+import javax.validation.constraints.NotNull;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
@@ -14,5 +16,6 @@ public class AnnounDto {
 	private String announType;
 	private String announContent;
 	private Timestamp announTimestamp;
+	@NotNull
 	private long orgId;
 }

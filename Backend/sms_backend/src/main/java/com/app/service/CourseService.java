@@ -8,4 +8,6 @@ import com.app.entities.secondary.Course;
 public interface CourseService {
 	List<CourseDto> getCourseList();
 	Course addCourse(CourseDto courseDto);
+	Course updateCourse(Long courseId,CourseDto courseDto);
+	void deleteCourse(Long courseId);
 }

@@ -37,10 +37,26 @@ public class SubjectServiceImpl implements SubjectService{
 										})
 						.collect(Collectors.toList());
 	}
+	
 	@Override
 	public Subject addSub(Long courseId, SubDto subDto) {
 		Subject subEnt=mapper.map(subDto, Subject.class);
 		subEnt.setCourse(courseDao.findById(courseId).orElseThrow());
 		return subDao.save(subEnt);
+	}
+	
+	@Override
+	public Subject updateSub(Long subId, SubDto subDto) {
+		Subject subOld=subDao.findById(subId).orElseThrow();
+		Subject subNew=mapper.map(subDto, Subject.class);
+		subNew.setSubId(subOld.getSubId());
+		subNew.setCourse(subOld.getCourse());
+		return subDao.save(subNew);
+	}
+	
+	@Override
+	public void deleteSub(Long subId) {
+		subDao.deleteById(subId);
+		subDao.flush();
 	}
 }

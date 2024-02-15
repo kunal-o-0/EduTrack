@@ -1,5 +1,7 @@
 package com.app.dto.fees;
 
+import javax.validation.constraints.NotNull;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
@@ -12,5 +14,6 @@ public class FeesDto {
 	private String feesType;
 	private double feesTotal;
 	private double feesPaid;
+	@NotNull
 	private long studId;
 }

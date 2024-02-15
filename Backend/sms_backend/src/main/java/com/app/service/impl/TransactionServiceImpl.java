@@ -37,10 +37,26 @@ public class TransactionServiceImpl implements TransactionService{
 											})
 						.collect(Collectors.toList());
 	}
+	
 	@Override
 	public Transaction addTrans(Long feesId, TransDto transDto) {
 		Transaction transEnt=mapper.map(transDto, Transaction.class);
 		transEnt.setFees(feesDao.findById(feesId).orElseThrow());
 		return transDao.save(transEnt);
+	}
+
+	@Override
+	public Transaction updateTrans(Long transId, TransDto transDto) {
+		Transaction transOld=transDao.findById(transId).orElseThrow();
+		Transaction transNew=mapper.map(transDto, Transaction.class);
+		transNew.setTransId(transOld.getTransId());
+		transNew.setFees(transOld.getFees());
+		return transDao.save(transNew);
+	}
+
+	@Override
+	public void deleteTrans(Long transId) {
+		// TODO Auto-generated method stub
+		
 	}	
 }

@@ -37,10 +37,27 @@ public class AnnouncementServiceImpl implements AnnouncementService{
 											})
 						.collect(Collectors.toList());
 	}
+	
 	@Override
 	public Announcement addAnnoun(Long orgId,AnnounDto announDto) {
 		Announcement announEnt=mapper.map(announDto, Announcement.class);
 		announEnt.setOrganization(orgDao.findById(orgId).orElseThrow());
 		return announDao.save(announEnt);
+	}
+	
+	@Override
+	public Announcement updateAnnoun(Long announId,AnnounDto announDto) {
+		Announcement announEntNew=mapper.map(announDto, Announcement.class);
+		Announcement announEntOld=announDao.findById(announId).orElseThrow();
+		announEntNew.setOrganization(announEntOld.getOrganization());
+		announEntNew.setAnnounId(announEntOld.getAnnounId());
+		return announDao.save(announEntNew);
+		
+	}
+	
+	@Override
+	public void deleteAnnoun(Long announId) {
+		announDao.deleteById(announId);
+		announDao.flush();
 	}
 }

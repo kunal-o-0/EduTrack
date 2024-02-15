@@ -50,4 +50,20 @@ public class StudentServiceImpl implements StudentService{
 		studEnt.setCourse(courseDao.findById(courseId).orElseThrow());
 		return studDao.save(studEnt);
 	}
+
+	@Override
+	public Student updateStud(Long studId, StudDto studDto) {
+		Student studOld=studDao.findById(studId).orElseThrow();
+		Student studNew=mapper.map(studDto, Student.class);
+		studNew.setStudId(studOld.getStudId());
+		studNew.setCourse(studOld.getCourse());
+		studNew.setOrganization(studOld.getOrganization());
+		return studDao.save(studNew);
+	}
+
+	@Override
+	public void deleteStud(Long studId) {
+		studDao.deleteById(studId);
+		studDao.flush();
+	}
 }

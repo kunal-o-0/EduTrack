@@ -8,4 +8,6 @@ import com.app.entities.secondary.Attendance;
 public interface AttendanceService {
 	List<AttendDto> getAttendList();
 	Attendance addAttend(Long studId,Long schedId,AttendDto attendDto);
+	Attendance updateAttend(Long attendId,AttendDto attendDto);
+	void deleteAttend(Long attendId);
 }

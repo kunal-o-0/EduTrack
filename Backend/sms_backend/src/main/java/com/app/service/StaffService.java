@@ -7,6 +7,7 @@ import com.app.entities.primary.Staff;
 
 public interface StaffService {
 	List<StaffDto> getStaffList();
-	
 	Staff addStaff(Long orgId,StaffDto staffDto);
+	Staff updateStaff(Long staffId,StaffDto staffDto);
+	void deleteStaff(Long staffId);
 }

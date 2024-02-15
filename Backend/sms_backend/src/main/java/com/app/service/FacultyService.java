@@ -8,4 +8,6 @@ import com.app.entities.primary.Faculty;
 public interface FacultyService {
 	List<FacDto> getFacultyList();
 	Faculty addFaculty(Long orgId,FacDto facDto);
+	Faculty updateFaculty(Long facId,FacDto facDto);
+	void deleteFaculty(Long facId);
 }

@@ -3,6 +3,8 @@ package com.app.dto.schedule;
 import java.sql.Time;
 import java.util.Date;
 
+import javax.validation.constraints.NotNull;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
@@ -14,5 +16,6 @@ public class SchedDto {
 	private long schedId;
 	private Date schedDate;
 	private Time schedTime;
+	@NotNull
 	private long subId;
 }

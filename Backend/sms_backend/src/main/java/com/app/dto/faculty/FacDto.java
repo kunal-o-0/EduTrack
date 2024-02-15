@@ -1,5 +1,8 @@
 package com.app.dto.faculty;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+
 import com.app.entities.secondary.Address;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
@@ -16,7 +19,11 @@ public class FacDto {
 	private String facMobNo;
 	private Address facAddress;
 	private String facQualif;
+	@Email
+	@NotNull
 	private String email;
+	@NotNull
 	private String password;
+	@NotNull
 	private long orgId;
 }

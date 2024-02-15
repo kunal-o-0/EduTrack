@@ -45,5 +45,20 @@ public class HeadServiceImpl implements HeadService{
 		Organization orgEnt= orgDao.findById(orgId).orElseThrow();
 		orgEnt.setHead(headEnt);
 		return headDao.save(headEnt);
+	}
+
+	@Override
+	public Head updateHead(Long headId, HeadDto headDto) {
+		Head headOld=headDao.findById(headId).orElseThrow();
+		Head headNew=mapper.map(headDto, Head.class);
+		headNew.setHeadId(headOld.getHeadId());
+		headNew.setOrganization(headOld.getOrganization());
+		return headDao.save(headNew);
+	}
+
+	@Override
+	public void deleteHead(Long headId) {
+		// TODO Auto-generated method stub
+		
 	}	
 }

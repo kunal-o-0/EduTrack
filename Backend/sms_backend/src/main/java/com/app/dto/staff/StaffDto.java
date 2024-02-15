@@ -1,5 +1,8 @@
 package com.app.dto.staff;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+
 import com.app.entities.primary.Organization;
 import com.app.entities.secondary.Address;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -18,7 +21,9 @@ public class StaffDto {
 	private Address staffAddress;
 	private String staffQualif;
 	private String staffCategory;
+	@Email
 	private String email;
 	private String password;
+	@NotNull
 	private long orgId;
 }

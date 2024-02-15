@@ -45,4 +45,19 @@ public class FacultyServiceImpl implements FacultyService{
 		facEnt.setOrganization(orgDao.findById(orgId).orElseThrow());
 		return facDao.save(facEnt);
 	}
+
+	@Override
+	public Faculty updateFaculty(Long facId, FacDto facDto) {
+		Faculty facOld=facDao.findById(facId).orElseThrow();
+		Faculty facNew=mapper.map(facDto, Faculty.class);
+		facNew.setFacId(facOld.getFacId());
+		facNew.setOrganization(facOld.getOrganization());
+		return facDao.save(facNew);
+	}
+
+	@Override
+	public void deleteFaculty(Long facId) {
+		facDao.deleteById(facId);
+		facDao.flush();
+	}
 }

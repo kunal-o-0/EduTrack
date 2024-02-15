@@ -37,10 +37,26 @@ public class FeesServiceImpl implements FeesService{
 											})
 						.collect(Collectors.toList());
 	}
+	
 	@Override
 	public Fees addFees(Long studId, FeesDto feesDto) {
 		Fees feesEnt=mapper.map(feesDto, Fees.class);
 		feesEnt.setStudent(studDao.findById(studId).orElseThrow());
 		return feesDao.save(feesEnt);
+	}
+
+	@Override
+	public Fees updateFees(Long feesId, FeesDto feesDto) {
+		Fees feesOld=feesDao.findById(feesId).orElseThrow();
+		Fees feesNew=mapper.map(feesDto, Fees.class);
+		feesNew.setFeesId(feesOld.getFeesId());
+		feesNew.setStudent(feesOld.getStudent());
+		return feesDao.save(feesNew);
+	}
+
+	@Override
+	public void deleteFees(Long feesId) {
+		feesDao.deleteById(feesId);
+		feesDao.flush();
 	}
 }

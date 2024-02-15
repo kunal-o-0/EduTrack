@@ -38,4 +38,18 @@ public class CourseServiceImpl implements CourseService{
 	public Course addCourse(CourseDto courseDto) {
 		return courseDao.save(mapper.map(courseDto, Course.class));
 	}
+
+	@Override
+	public Course updateCourse(Long courseId, CourseDto courseDto) {
+		Course courseNew=mapper.map(courseDto, Course.class);
+		Course courseOld=courseDao.findById(courseId).orElseThrow();
+		courseNew.setCourseId(courseOld.getCourseId());
+		return courseDao.save(courseNew);
+	}
+
+	@Override
+	public void deleteCourse(Long courseId) {
+		courseDao.deleteById(courseId);
+		courseDao.flush();
+	}
 }

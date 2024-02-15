@@ -8,4 +8,6 @@ import com.app.entities.primary.Head;
 public interface HeadService {
 	List<HeadDto> getHeadList();
 	Head addHead(Long orgId, HeadDto headDto);
+	Head updateHead(Long headId,HeadDto headDto);
+	void deleteHead(Long headId);
 }

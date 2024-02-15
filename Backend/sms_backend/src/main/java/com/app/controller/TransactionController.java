@@ -3,13 +3,17 @@ package com.app.controller;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.validation.constraints.NotNull;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,11 +37,27 @@ public class TransactionController {
 		return transService.getTransList();
 	}
 	
-	@PostMapping("{feesId}")
-	public ResponseEntity<?> addTrans(@PathVariable Long feesId,@RequestBody TransDto transDto)
+	@PostMapping
+	public ResponseEntity<?> addTrans(@RequestBody TransDto transDto)
 	{
-		Transaction transEnt=transService.addTrans(feesId, transDto);
+		Transaction transEnt=transService.addTrans(transDto.getFeesId(), transDto);
 		return ResponseEntity.status(HttpStatus.CREATED)
 				.body(new ResponseText(HttpStatus.CREATED.value(),"Successfully created"));
+	}
+	
+	@PutMapping("/{transId}")
+	public ResponseEntity<?> updateTrans(@PathVariable @NotNull Long transId,@RequestBody TransDto transDto)
+	{
+		Transaction transEnt=transService.updateTrans(transId, transDto);
+		return ResponseEntity.status(HttpStatus.OK)
+				.body(new ResponseText(HttpStatus.OK.value(),"Successfully updated"));
+	}
+	
+	@DeleteMapping("/{transId}")
+	public ResponseEntity<?> deleteTrans(@PathVariable @NotNull Long transId)
+	{
+		transService.deleteTrans(transId);
+		return ResponseEntity.status(HttpStatus.OK)
+				.body(new ResponseText(HttpStatus.OK.value(),"Successfully deleted"));
 	}
 }

@@ -58,13 +58,11 @@ public class OrganizationServiceImpl implements OrganizationService{
 
 	@Override
 	public Organization updateOrg(Long orgId,OrgDto orgDto) {
-		orgDto.setOrgId(orgId);
-		Organization orgEnt=mapper.map(orgDto, Organization.class);
-		Head head=orgDao.findById(orgId)
-						.orElseThrow()
-						.getHead();
-		orgEnt.setHead(head);
-		return orgDao.save(orgEnt);
+		Organization orgOld=orgDao.findById(orgId).orElseThrow();
+		Organization orgNew=mapper.map(orgDto, Organization.class);
+		orgNew.setOrgId(orgOld.getOrgId());
+		orgNew.setHead(orgOld.getHead());
+		return orgDao.save(orgNew);
 	}
 
 	@Override

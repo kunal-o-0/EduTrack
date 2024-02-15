@@ -1,5 +1,8 @@
 package com.app.dto.head;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+
 import com.app.entities.primary.Organization;
 import com.app.entities.secondary.Address;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -17,7 +20,9 @@ public class HeadDto {
 	private String headMobNo;
 	private Address headAddress;
 	private String headQualif;
+	@Email
 	private String email;
 	private String password;
+	@NotNull
 	private long orgId;
 }
