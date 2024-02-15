@@ -58,7 +58,7 @@ public class HeadServiceImpl implements HeadService{
 
 	@Override
 	public void deleteHead(Long headId) {
-		// TODO Auto-generated method stub
-		
+		headDao.deleteById(headId);
+		headDao.flush();
 	}	
 }

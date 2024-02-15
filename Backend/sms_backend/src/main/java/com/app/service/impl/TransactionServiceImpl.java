@@ -56,7 +56,7 @@ public class TransactionServiceImpl implements TransactionService{
 
 	@Override
 	public void deleteTrans(Long transId) {
-		// TODO Auto-generated method stub
-		
+		transDao.deleteById(transId);
+		transDao.flush();
 	}	
 }
