@@ -1,11 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import Dashboard from "./Dashboard";
+import { Provider } from "react-redux";
+import { store } from "./store";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
-  <div>
-    <Dashboard />
-  </div>
+  <Provider store={store}>
+    <div>
+      <Dashboard />
+    </div>
+  </Provider>
 );
