@@ -18,9 +18,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.app.dto.attendance.AttendDto;
 import com.app.dto.fees.FeesDto;
 import com.app.entities.secondary.Fees;
 import com.app.service.FeesService;
+import com.app.util.CreatePayload;
 import com.app.util.ResponseText;
 
 @RestController
@@ -32,9 +34,10 @@ public class FeesController {
 	private FeesService feesService;
 	
 	@GetMapping
-	public List<FeesDto> getFeesList()
+	public ResponseEntity<?> getFeesList()
 	{
-		return feesService.getFeesList();
+		return  ResponseEntity.status(HttpStatus.OK)
+				.body(new CreatePayload<FeesDto>("Fees list",feesService.getFeesList()));
 	}
 	
 	@PostMapping

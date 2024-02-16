@@ -12,19 +12,49 @@ import {
 import Divider from "@mui/material/Divider";
 import { useDispatch } from "react-redux";
 import { changeTitle } from "../features/navBarSlice";
+import axios from "axios";
+
+function createAnnoun(
+  announId,
+  announType,
+  announContent,
+  announTimestamp,
+  orgId
+) {
+  return { announId, announType, announContent, announTimestamp, orgId };
+}
 
 function Announcements() {
-  const [announ, setAnnoun] = useState("");
-  const [activeAnnoun, setActiveAnnoun] = useState();
+  const [announs, setAnnouns] = useState([
+    createAnnoun("", "", "", "", "", ""),
+  ]);
+  const [activeAnnoun, setActiveAnnoun] = useState(
+    createAnnoun("", "", "", "", "", "")
+  );
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(changeTitle({ title: "Announcements" }));
-  });
+    axios.get("http://localhost:8080/announcement").then((res) => {
+      let dataList = res.data.payload;
+      let list = [];
+      dataList.map((item) => {
+        list.push(
+          createAnnoun(
+            item.announId,
+            item.announType,
+            item.announContent,
+            item.announTimestamp,
+            item.orgId
+          )
+        );
+      });
+      setAnnouns(list);
+    });
+  }, []);
 
-  const handleAnnounClick = (e, id) => {
-    setAnnoun(`${e.target.textContent}`);
-    setActiveAnnoun(id);
+  const handleAnnounClick = (e, item) => {
+    setActiveAnnoun(item);
   };
 
   return (
@@ -49,22 +79,22 @@ function Announcements() {
           }}
         >
           <List disablePadding>
-            {[
-              1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2,
-              3, 4, 5,
-            ].map((value) => {
-              const labelValue = `Announcement ${value}`;
+            {announs.map((item) => {
+              const labelValue = `${item.announType}`;
 
               return (
                 <>
                   <ListItem
                     disablePadding
-                    id={value}
+                    key={item.announId}
+                    id={item.announId}
                     onClick={(event) => {
-                      handleAnnounClick(event, value);
+                      handleAnnounClick(event, item);
                     }}
                     sx={{
-                      bgcolor: `${activeAnnoun !== value ? "" : "#393E46"}`,
+                      bgcolor: `${
+                        activeAnnoun.announId !== item.announId ? "" : "#393E46"
+                      }`,
                     }}
                   >
                     <ListItemButton disableRipple>
@@ -88,7 +118,7 @@ function Announcements() {
           sx={{
             width: "60vw",
             height: "700px",
-            bgcolor: "white",
+            bgcolor: "whKite",
             overflow: "auto",
           }}
         >
@@ -98,11 +128,15 @@ function Announcements() {
             sx={{ fontSize: "1.8rem", fontWeight: "600" }}
             gutterBottom
           >
-            {announ}
+            {activeAnnoun.announType}
           </Typography>
-          <Typography variant="div2">
-            Here you will see content of announcement
+          <Typography
+            variant="div2"
+            sx={{ textAlign: "right", marginRight: "1rem" }}
+          >
+            {activeAnnoun.announTimestamp}
           </Typography>
+          <Typography variant="div2">{activeAnnoun.announContent}</Typography>
         </Stack>
       </Stack>
     </Paper>

@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.app.dto.attendance.AttendDto;
 import com.app.entities.secondary.Attendance;
 import com.app.service.AttendanceService;
+import com.app.util.CreatePayload;
 import com.app.util.ResponseText;
 
 @RestController
@@ -32,9 +33,10 @@ public class AttendanceController {
 	private AttendanceService attendService;
 	
 	@GetMapping
-	public List<AttendDto> getAttendList()
+	public ResponseEntity<?> getAttendList()
 	{
-		return attendService.getAttendList();
+		return  ResponseEntity.status(HttpStatus.OK)
+								.body(new CreatePayload<AttendDto>("Attendence list",attendService.getAttendList()));
 	}
 	
 	@PostMapping

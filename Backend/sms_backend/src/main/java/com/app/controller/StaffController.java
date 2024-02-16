@@ -18,9 +18,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.app.dto.attendance.AttendDto;
 import com.app.dto.staff.StaffDto;
 import com.app.entities.primary.Staff;
 import com.app.service.StaffService;
+import com.app.util.CreatePayload;
 import com.app.util.ResponseText;
 
 @RestController
@@ -32,9 +34,10 @@ public class StaffController {
 	private StaffService staffService;
 	
 	@GetMapping
-	public List<StaffDto> getStaffList()
+	public ResponseEntity<?> getStaffList()
 	{
-		return staffService.getStaffList();
+		return  ResponseEntity.status(HttpStatus.OK)
+				.body(new CreatePayload<StaffDto>("Staff list",staffService.getStaffList())); 
 	}
 	
 	@PostMapping

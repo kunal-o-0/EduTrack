@@ -18,9 +18,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.app.dto.attendance.AttendDto;
 import com.app.dto.schedule.SchedDto;
 import com.app.entities.secondary.Schedule;
 import com.app.service.ScheduleService;
+import com.app.util.CreatePayload;
 import com.app.util.ResponseText;
 
 @RestController
@@ -32,9 +34,10 @@ public class ScheduleController {
 	private ScheduleService schedService;
 	
 	@GetMapping
-	public List<SchedDto> getSchedList()
+	public ResponseEntity<?> getSchedList()
 	{
-		return schedService.getSchedList();
+		return  ResponseEntity.status(HttpStatus.OK)
+				.body(new CreatePayload<SchedDto>("Schedule list",schedService.getSchedList())); 
 	}
 	
 	@PostMapping

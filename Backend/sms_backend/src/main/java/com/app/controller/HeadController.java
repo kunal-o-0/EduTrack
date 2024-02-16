@@ -18,9 +18,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.app.dto.attendance.AttendDto;
 import com.app.dto.head.HeadDto;
 import com.app.entities.primary.Head;
 import com.app.service.HeadService;
+import com.app.util.CreatePayload;
 import com.app.util.ResponseText;
 
 @RestController
@@ -32,9 +34,10 @@ public class HeadController {
 	private HeadService headService;
 	
 	@GetMapping
-	public List<HeadDto> getHeadList()
+	public ResponseEntity<?> getHeadList()
 	{
-		return headService.getHeadList();
+		return  ResponseEntity.status(HttpStatus.OK)
+				.body(new CreatePayload<HeadDto>("Head list",headService.getHeadList())); 
 	}
 	
 	@PostMapping

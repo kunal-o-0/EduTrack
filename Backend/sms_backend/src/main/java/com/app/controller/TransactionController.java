@@ -18,9 +18,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.app.dto.attendance.AttendDto;
 import com.app.dto.transaction.TransDto;
 import com.app.entities.secondary.Transaction;
 import com.app.service.TransactionService;
+import com.app.util.CreatePayload;
 import com.app.util.ResponseText;
 
 @RestController
@@ -32,9 +34,10 @@ public class TransactionController {
 	private TransactionService transService;
 	
 	@GetMapping
-	public List<TransDto> getTransList()
+	public ResponseEntity<?> getTransList()
 	{
-		return transService.getTransList();
+		return  ResponseEntity.status(HttpStatus.OK)
+				.body(new CreatePayload<TransDto>("Transaction list",transService.getTransList())); 
 	}
 	
 	@PostMapping

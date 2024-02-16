@@ -18,9 +18,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.app.dto.attendance.AttendDto;
 import com.app.dto.performance.PerforDto;
 import com.app.entities.secondary.Performance;
 import com.app.service.PerformanceService;
+import com.app.util.CreatePayload;
 import com.app.util.ResponseText;
 
 @RestController
@@ -32,9 +34,10 @@ public class PerformanceController {
 	private PerformanceService perforService;
 	
 	@GetMapping
-	public List<PerforDto> getPerforList()
+	public ResponseEntity<?> getPerforList()
 	{
-		return perforService.getPerforList();
+		return  ResponseEntity.status(HttpStatus.OK)
+				.body(new CreatePayload<PerforDto>("Performance list",perforService.getPerforList())); 
 	}
 	
 	@PostMapping

@@ -18,10 +18,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.app.dto.attendance.AttendDto;
 import com.app.dto.student.StudDto;
 import com.app.dto.subject.SubDto;
 import com.app.entities.secondary.Subject;
 import com.app.service.SubjectService;
+import com.app.util.CreatePayload;
 import com.app.util.ResponseText;
 
 @RestController
@@ -33,9 +35,10 @@ public class SubjectController {
 	private SubjectService subService;
 	
 	@GetMapping
-	public List<SubDto> getSubList()
+	public ResponseEntity<?> getSubList()
 	{
-		return subService.getSubList();
+		return  ResponseEntity.status(HttpStatus.OK)
+				.body(new CreatePayload<SubDto>("Subject list",subService.getSubList())); 
 	}
 	
 	@PostMapping

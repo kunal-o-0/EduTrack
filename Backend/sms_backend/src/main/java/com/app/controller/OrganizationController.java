@@ -19,9 +19,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.dto.organization.OrgDto;
+import com.app.dto.attendance.AttendDto;
 import com.app.dto.organization.OrgAddHeadDto;
 import com.app.entities.primary.Organization;
 import com.app.service.OrganizationService;
+import com.app.util.CreatePayload;
 import com.app.util.ResponseText;
 
 @RestController
@@ -33,9 +35,10 @@ public class OrganizationController {
 	OrganizationService orgService;
 	
 	@GetMapping
-	public List<OrgDto> getOrgList()
+	public ResponseEntity<?> getOrgList()
 	{
-		return orgService.getOrgList();
+		return  ResponseEntity.status(HttpStatus.OK)
+				.body(new CreatePayload<OrgDto>("Organization list",orgService.getOrgList())); 
 	}
 	
 	@PostMapping

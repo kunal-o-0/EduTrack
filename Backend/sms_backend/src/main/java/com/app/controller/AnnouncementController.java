@@ -9,6 +9,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,10 +22,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.app.dto.announcement.AnnounDto;
 import com.app.entities.secondary.Announcement;
 import com.app.service.AnnouncementService;
+import com.app.util.CreatePayload;
 import com.app.util.ResponseText;
 
 @RestController
 @RequestMapping("/announcement")
+@CrossOrigin(origins = "http://localhost:3000/")
 public class AnnouncementController {
 	@Autowired
 	private ModelMapper mapper;
@@ -32,9 +35,11 @@ public class AnnouncementController {
 	private AnnouncementService announService;
 	
 	@GetMapping
-	public List<AnnounDto> getAnnounList()
+	public ResponseEntity<?> getAnnounList()
 	{
-		return announService.getAnnList();
+		return ResponseEntity.status(HttpStatus.OK)
+								.body(new CreatePayload<AnnounDto>("announcement list", announService.getAnnList()));
+					
 	}
 	
 	@PostMapping
