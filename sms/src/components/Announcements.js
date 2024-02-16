@@ -12,8 +12,9 @@ import {
 import Divider from "@mui/material/Divider";
 import { useDispatch } from "react-redux";
 import { changeTitle } from "../features/navBarSlice";
-import axios from "axios";
+import getAnnouns from "../services/announcement";
 
+//  returns object with required fields in it
 function createAnnoun(
   announId,
   announType,
@@ -25,34 +26,30 @@ function createAnnoun(
 }
 
 function Announcements() {
-  const [announs, setAnnouns] = useState([
-    createAnnoun("", "", "", "", "", ""),
-  ]);
+  //  this state for storing all announcements
+  const [announs, setAnnouns] = useState([]);
+
+  //  this state for tracking current active/selected announcement
   const [activeAnnoun, setActiveAnnoun] = useState(
     createAnnoun("", "", "", "", "", "")
   );
   const dispatch = useDispatch();
 
+  //  function to load all announcements using announcement.js service which returns promise object
+  const loadAnnouns = () => {
+    getAnnouns().then((res) => {
+      setAnnouns(res);
+    });
+  };
+
   useEffect(() => {
     dispatch(changeTitle({ title: "Announcements" }));
-    axios.get("http://localhost:8080/announcement").then((res) => {
-      let dataList = res.data.payload;
-      let list = [];
-      dataList.map((item) => {
-        list.push(
-          createAnnoun(
-            item.announId,
-            item.announType,
-            item.announContent,
-            item.announTimestamp,
-            item.orgId
-          )
-        );
-      });
-      setAnnouns(list);
-    });
+
+    //  function call for loading announcements into announs state
+    loadAnnouns();
   }, []);
 
+  //  onclick handler for handling current active/selected announcement
   const handleAnnounClick = (e, item) => {
     setActiveAnnoun(item);
   };
@@ -79,9 +76,9 @@ function Announcements() {
           }}
         >
           <List disablePadding>
+            {/* create list with fetched announcements */}
             {announs.map((item) => {
               const labelValue = `${item.announType}`;
-
               return (
                 <>
                   <ListItem
@@ -92,6 +89,7 @@ function Announcements() {
                       handleAnnounClick(event, item);
                     }}
                     sx={{
+                      //  checking for current active announ and setting light colour to it otherwise dark
                       bgcolor: `${
                         activeAnnoun.announId !== item.announId ? "" : "#393E46"
                       }`,
