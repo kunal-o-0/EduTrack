@@ -1,4 +1,5 @@
 import axios from "axios";
+import { createUrl } from "./utils";
 
 function createAnnoun(
   announId,
@@ -11,7 +12,7 @@ function createAnnoun(
 }
 
 const getAnnouns = async () => {
-  const response = await axios.get("http://localhost:8080/announcement");
+  const response = await axios.get(createUrl("announcement"));
 
   return response.data.payload.map((item) => {
     return createAnnoun(
