@@ -1,7 +1,7 @@
 package com.app.dto.schedule;
 
 import java.sql.Time;
-import java.util.Date;
+import java.sql.Date;
 
 import javax.validation.constraints.NotNull;
 
