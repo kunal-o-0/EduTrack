@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import com.app.dao.CourseDao;
 import com.app.dao.OrganizationDao;
 import com.app.dao.StudentDao;
+import com.app.dto.attendance.AttendDto;
+import com.app.dto.student.StudAttendDto;
 import com.app.dto.student.StudDto;
 import com.app.entities.primary.Organization;
 import com.app.entities.primary.Student;
@@ -65,5 +67,18 @@ public class StudentServiceImpl implements StudentService{
 	public void deleteStud(Long studId) {
 		studDao.deleteById(studId);
 		studDao.flush();
+	}
+
+	@Override
+	public List<StudAttendDto> getAttendance(Long studId) {
+		Student studEnt=studDao.findById(studId).orElseThrow();
+		return studEnt.getAttendances()
+						.stream()
+						.map((attendEnt)->
+												{
+													StudAttendDto studAttendDto=mapper.map(attendEnt, StudAttendDto.class);
+													return studAttendDto;
+												})
+						.collect(Collectors.toList());
 	}
 }
