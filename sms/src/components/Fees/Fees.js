@@ -2,10 +2,17 @@ import FeesMain from "./FeesMain";
 import { Button, ButtonGroup, Paper, Stack, Typography } from "@mui/material";
 import Styles from "../../assets/Style";
 import { Link, Outlet } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { changeTitle } from "../../features/navBarSlice";
 
 function Fees() {
   const [status, setStatus] = useState("");
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(changeTitle({ title: "Fees" }));
+  });
 
   return (
     <Paper

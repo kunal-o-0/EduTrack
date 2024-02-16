@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Styles from "../../src/assets/Style.js";
 import {
   Box,
@@ -12,12 +12,19 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
+import { changeTitle } from "../features/navBarSlice.js";
+import { useDispatch } from "react-redux";
 
 function Schedule() {
   const [activeSched, setActiveSched] = useState("");
   const handleActiveSched = (id) => {
     setActiveSched(id);
   };
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(changeTitle({ title: "Schedule" }));
+  });
 
   return (
     <Paper

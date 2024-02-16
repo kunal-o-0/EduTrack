@@ -11,6 +11,9 @@ import {
   Typography,
 } from "@mui/material";
 import Styles from "../assets/Style";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { changeTitle } from "../features/navBarSlice";
 
 const Columns = [
   { id: "subject", label: "Subject", minWidth: "20rem", align: "center" },
@@ -34,6 +37,12 @@ function createData(subject, obtained_marks, total_marks, grades) {
 }
 
 function Grades() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(changeTitle({ title: "Grades" }));
+  });
+
   const data = [
     createData("Maths", 553, 600, "A+"),
     createData("Science", 553, 600, "A+"),
@@ -128,7 +137,7 @@ function Grades() {
       <Box display="flex" justifyContent="center">
         <Button
           variant="contained"
-          sx={{ marginTop: "1.5rem", bgcolor: Styles.colors.secondary }}
+          sx={{ marginTop: "1rem", bgcolor: Styles.colors.secondary }}
         >
           <Typography variant="h6" sx={{ fontSize: "1rem", fontWeight: "900" }}>
             Generate Report

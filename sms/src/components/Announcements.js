@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import {
   List,
@@ -10,10 +10,17 @@ import {
   Typography,
 } from "@mui/material";
 import Divider from "@mui/material/Divider";
+import { useDispatch } from "react-redux";
+import { changeTitle } from "../features/navBarSlice";
 
 function Announcements() {
   const [announ, setAnnoun] = useState("");
   const [activeAnnoun, setActiveAnnoun] = useState();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(changeTitle({ title: "Announcements" }));
+  });
 
   const handleAnnounClick = (e, id) => {
     setAnnoun(`${e.target.textContent}`);

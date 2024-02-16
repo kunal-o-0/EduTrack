@@ -9,6 +9,9 @@ import {
   Typography,
 } from "@mui/material";
 import Styles from "../assets/Style";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { changeTitle } from "../features/navBarSlice";
 
 const columns = [
   {
@@ -36,6 +39,12 @@ function createData(date, day, status) {
 }
 
 function Attendance() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(changeTitle({ title: "Attendance" }));
+  });
+
   const data = [
     createData("24-05-2023", "Monday", "Present"),
     createData("27-12-2023", "Friday", "Present"),
