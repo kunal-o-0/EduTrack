@@ -49,7 +49,7 @@ function Grades() {
   useEffect(() => {
     dispatch(changeTitle({ title: "Grades" }));
     fetchGrades();
-  });
+  }, []);
 
   return (
     <Box
@@ -103,7 +103,7 @@ function Grades() {
               {/* Creating row with the help of map method of array and inserting it into table */}
               {grades.map((row) => {
                 return (
-                  <TableRow>
+                  <TableRow key={row.id}>
                     {Columns.map((column) => {
                       return (
                         <TableCell

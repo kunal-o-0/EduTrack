@@ -49,17 +49,18 @@ export const getAttend = async (studId) => {
  */
 
 /**
- *  Grades service
+ *  Grades/Performance service
  *  Fetching grades of student with id passed as parameter
  */
 //   Function for creating grade object
 export const createGrade = (
+  id = 0,
   subject = "",
   obtainedMarks = 0,
   totalMarks = 0,
   grades = ""
 ) => {
-  return { subject, obtainedMarks, totalMarks, grades };
+  return { id, subject, obtainedMarks, totalMarks, grades };
 };
 
 export const getGrades = async (studId) => {
@@ -67,6 +68,7 @@ export const getGrades = async (studId) => {
 
   return res.data.payload.map((item) => {
     return createGrade(
+      item.perfId,
       item.subName,
       parseInt(item.marksObtained),
       parseInt(item.subTotalMarks),

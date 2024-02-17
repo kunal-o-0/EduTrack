@@ -49,6 +49,7 @@ function PaymentDetails() {
               borderRadius: "1rem",
               maxHeight: "10rem",
             }}
+            key={parseInt(receipt.id)}
           >
             <CardContent sx={{ padding: "0", ":last-child": { padding: "0" } }}>
               <Stack
