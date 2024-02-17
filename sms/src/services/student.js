@@ -11,36 +11,6 @@ import { createUrl } from "./utils";
 import dateUtil from "date-and-time";
 
 /**
- *  Announcement service
- */
-function createAnnoun(
-  announId,
-  announType,
-  announContent,
-  announTimestamp,
-  orgId
-) {
-  return { announId, announType, announContent, announTimestamp, orgId };
-}
-
-export const getAnnouns = async () => {
-  const response = await axios.get(createUrl("announcement"));
-
-  return response.data.payload.map((item) => {
-    return createAnnoun(
-      item.announId,
-      item.announType,
-      item.announContent,
-      item.announTimestamp,
-      item.orgId
-    );
-  });
-};
-/**
- *  END
- */
-
-/**
  *  Attendance service starts here
  */
 //  function for creating attendance object based on fields in DB
