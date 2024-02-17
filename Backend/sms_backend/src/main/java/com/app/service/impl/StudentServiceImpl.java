@@ -17,10 +17,12 @@ import com.app.dao.SubjectDao;
 import com.app.dto.attendance.AttendDto;
 import com.app.dto.student.StudAttendDto;
 import com.app.dto.student.StudDto;
+import com.app.dto.student.StudGetPendingFeesDto;
 import com.app.dto.student.StudGetTransDto;
 import com.app.dto.student.StudPerfDto;
 import com.app.entities.primary.Organization;
 import com.app.entities.primary.Student;
+import com.app.entities.secondary.Fees;
 import com.app.entities.secondary.Performance;
 import com.app.entities.secondary.Subject;
 import com.app.service.StudentService;
@@ -123,5 +125,19 @@ public class StudentServiceImpl implements StudentService{
 																									});													
 												});
 		return transactions;
+	}
+
+	@Override
+	public List<StudGetPendingFeesDto> getPendingFees(Long studId) {
+		Student studEnt=studDao.findById(studId).orElseThrow();
+		List<Fees> fees=studEnt.getFees();
+		return fees.stream()
+					.map((feeEnt)->
+									{
+										StudGetPendingFeesDto feesDto=mapper.map(feeEnt, StudGetPendingFeesDto.class);
+										feesDto.setFeesPending(feeEnt.getFeesTotal()-feeEnt.getFeesPaid());
+										return feesDto;
+									})
+					.collect(Collectors.toList());
 	}
 }

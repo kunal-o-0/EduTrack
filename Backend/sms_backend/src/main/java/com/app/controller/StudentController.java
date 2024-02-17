@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.app.dto.attendance.AttendDto;
 import com.app.dto.student.StudAttendDto;
 import com.app.dto.student.StudDto;
+import com.app.dto.student.StudGetPendingFeesDto;
 import com.app.dto.student.StudGetTransDto;
 import com.app.dto.student.StudPerfDto;
 import com.app.entities.primary.Student;
@@ -39,6 +40,7 @@ public class StudentController {
 	@Autowired
 	private StudentService studService;
 	
+//	for getting all student list
 	@GetMapping
 	public ResponseEntity<?> getStudentList()
 	{
@@ -46,6 +48,7 @@ public class StudentController {
 				.body(new CreatePayload<StudDto>("Student list",studService.getStudentList())); 
 	}
 	
+//	for getting attendance of student by his/her id
 	@GetMapping("/attendance/{studId}")
 	public ResponseEntity<?> getAttendance(@PathVariable @NotNull Long studId)
 	{
@@ -53,6 +56,7 @@ public class StudentController {
 				.body(new CreatePayload<StudAttendDto>("Student's attendance list",studService.getAttendance(studId)));  
 	}
 	
+//	for getting performance of student by id
 	@GetMapping("/performance/{studId}")
 	public ResponseEntity<?> getPerformances(@PathVariable @NotNull Long studId)
 	{
@@ -60,6 +64,7 @@ public class StudentController {
 								.body(new CreatePayload<StudPerfDto>("Student's performance list", studService.getPerformance(studId)));
 	}
 	
+//	for getting fee transactions by student id
 	@GetMapping("/fees/get-trans/{studId}")
 	public ResponseEntity<?> getTransactions(@PathVariable @NotNull Long studId)
 	{
@@ -67,6 +72,15 @@ public class StudentController {
 								.body(new CreatePayload<StudGetTransDto>("All transaction made by student", studService.getTransactions(studId)));
 	}
 	
+//	for getting pending fees list of student by students's id
+	@GetMapping("/fees/get-pending/{studId}")
+	public ResponseEntity<?> getPendingFees(@PathVariable @NotNull Long studId)
+	{
+		return ResponseEntity.status(HttpStatus.OK)
+								.body(new CreatePayload<StudGetPendingFeesDto>("List of pending fees", studService.getPendingFees(studId)));
+	}
+	
+//	for adding student
 	@PostMapping
 	public ResponseEntity<?> addStudent( @RequestBody StudDto studDto)
 	{
@@ -75,6 +89,7 @@ public class StudentController {
 				.body(new ResponseText(HttpStatus.CREATED.value(),"Successfully created"));
 	}
 	
+//	for updating student details by student id
 	@PutMapping("/{studId}")
 	public ResponseEntity<?> updateStud(@PathVariable @NotNull Long studId,@RequestBody StudDto studDto)
 	{
@@ -83,6 +98,7 @@ public class StudentController {
 				.body(new ResponseText(HttpStatus.OK.value(),"Successfully updated"));
 	}
 	
+//	for deleting student by id
 	@DeleteMapping("/{studId}")
 	public ResponseEntity<?> deleteStud(@PathVariable @NotNull Long studId)
 	{
