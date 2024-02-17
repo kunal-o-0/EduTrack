@@ -1,5 +1,6 @@
 package com.app.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -16,6 +17,7 @@ import com.app.dao.SubjectDao;
 import com.app.dto.attendance.AttendDto;
 import com.app.dto.student.StudAttendDto;
 import com.app.dto.student.StudDto;
+import com.app.dto.student.StudGetTransDto;
 import com.app.dto.student.StudPerfDto;
 import com.app.entities.primary.Organization;
 import com.app.entities.primary.Student;
@@ -103,5 +105,23 @@ public class StudentServiceImpl implements StudentService{
 																		})
 													.collect(Collectors.toList());
 		return studPerfList;
+	}
+
+	@Override
+	public List<StudGetTransDto> getTransactions(Long studId) {
+		Student studEnt=studDao.findById(studId).orElseThrow();
+		List<StudGetTransDto> transactions=new ArrayList<>();
+		studEnt.getFees().stream()
+							.forEach((feeEnt)->
+												{
+													feeEnt.getTransactions().stream()
+																			.forEach((transEnt)->
+																									{
+																										StudGetTransDto studGetTransDto= mapper.map(transEnt, StudGetTransDto.class);
+																										studGetTransDto.setFeesType(feeEnt.getFeesType());
+																										transactions.add(studGetTransDto);
+																									});													
+												});
+		return transactions;
 	}
 }

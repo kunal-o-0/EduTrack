@@ -16,6 +16,7 @@ public class TransDto {
 	private long transId;
 	private double transAmount;
 	private Timestamp transTimestamp;
+	private String transDetails;
 	@NotNull
 	private long feesId;
 }

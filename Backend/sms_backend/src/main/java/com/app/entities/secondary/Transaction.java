@@ -30,6 +30,9 @@ public class Transaction {
 	@Column(name="timestamp")
 	private Timestamp transTimestamp;
 	
+	@Column(name="details")
+	private String transDetails;
+	
 	@ManyToOne
 	@JoinColumn(name="fees_id",nullable=false)
 	private Fees fees;

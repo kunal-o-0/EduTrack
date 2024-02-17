@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.app.dto.attendance.AttendDto;
 import com.app.dto.student.StudAttendDto;
 import com.app.dto.student.StudDto;
+import com.app.dto.student.StudGetTransDto;
 import com.app.dto.student.StudPerfDto;
 import com.app.entities.primary.Student;
 import com.app.service.CourseService;
@@ -57,6 +58,13 @@ public class StudentController {
 	{
 		return ResponseEntity.status(HttpStatus.OK)
 								.body(new CreatePayload<StudPerfDto>("Student's performance list", studService.getPerformance(studId)));
+	}
+	
+	@GetMapping("/fees/get-trans/{studId}")
+	public ResponseEntity<?> getTransactions(@PathVariable @NotNull Long studId)
+	{
+		return ResponseEntity.status(HttpStatus.OK)
+								.body(new CreatePayload<StudGetTransDto>("All transaction made by student", studService.getTransactions(studId)));
 	}
 	
 	@PostMapping
