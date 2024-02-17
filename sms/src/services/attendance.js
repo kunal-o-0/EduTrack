@@ -22,7 +22,7 @@ export const createAttendData = (date = "", day = "", status = "") => {
 };
 
 const getAttend = async (studId) => {
-  const res = await axios.get(createUrl(`student/${studId}`));
+  const res = await axios.get(createUrl(`student/attendance/${studId}`));
 
   return res.data.payload.map((item) => {
     const timestamp = item.attdenTimestamp;
