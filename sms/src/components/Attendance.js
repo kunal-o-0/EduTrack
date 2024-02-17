@@ -10,8 +10,13 @@ import {
 } from "@mui/material";
 import Styles from "../assets/Style";
 import { useDispatch } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { changeTitle } from "../features/navBarSlice";
+import getAttend from "../services/attendance";
+
+function createAttend(attendId, attendStatus, attdenTimestamp) {
+  return { attendId, attendStatus, attdenTimestamp };
+}
 
 const columns = [
   {
@@ -39,11 +44,21 @@ function createData(date, day, status) {
 }
 
 function Attendance() {
+  const [attends, setAttends] = useState([]);
   const dispatch = useDispatch();
+
+  const date = new Date();
+
+  const loadAttendance = () => {
+    getAttend(1).then((data) => {
+      setAttends(data);
+    });
+  };
 
   useEffect(() => {
     dispatch(changeTitle({ title: "Attendance" }));
-  });
+    loadAttendance();
+  }, []);
 
   const data = [
     createData("24-05-2023", "Monday", "Present"),
@@ -106,6 +121,7 @@ function Attendance() {
           </TableHead>
           <TableBody>
             {data.map((row) => {
+              console.log(attends);
               return (
                 <TableRow>
                   {columns.map((column) => {
