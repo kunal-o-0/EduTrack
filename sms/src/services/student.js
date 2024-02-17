@@ -77,3 +77,34 @@ export const getGrades = async (studId) => {
 /**
  *  END
  */
+
+/**
+ *  Transactions service
+ *  used for fetching all the transactions made by student
+ */
+export const createReceipt = (
+  id = "",
+  details = "",
+  amount = 0.0,
+  timestamp = "",
+  feesType = ""
+) => {
+  return { id, details, amount, timestamp, feesType };
+};
+
+export const getReceipts = async (studId) => {
+  const res = await axios.get(createUrl(`student/fees/get-trans/${studId}`));
+  return res.data.payload.map((item) => {
+    let timeStamp = new Date(item.transTimestamp);
+    return createReceipt(
+      item.transId,
+      item.transDetails,
+      parseFloat(item.transAmount),
+      dateUtil.format(timeStamp, "ddd, DD-MM,YYYY hh:mm:ss A"),
+      item.feesType
+    );
+  });
+};
+/**
+ *  END
+ */

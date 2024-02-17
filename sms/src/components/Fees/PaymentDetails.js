@@ -8,21 +8,23 @@ import {
   Typography,
 } from "@mui/material";
 import Styles from "../../assets/Style";
-
-function createReceipt(amount, label, content) {
-  return { amount, label, content };
-}
+import { useEffect, useState } from "react";
+import { createReceipt, getReceipts } from "../../services/student";
 
 function PaymentDetails() {
-  const data = [
-    createReceipt(6000, "Tuition", "Tuition fees paid"),
-    createReceipt(3000, "Tuition", "Tuition fees paid"),
-    createReceipt(500, "Exam", "Tuition fees paid"),
-    createReceipt(10, "Stationary", "Tuition fees paid"),
-    createReceipt(10000, "Course", "Tuition fees paid"),
-    createReceipt(200000, "Academics", "Tuition fees paid"),
-    createReceipt(53512, "Scholorship", "Tuition fees paid"),
-  ];
+  //  creating receipts state for storing all transactions
+  const [receipts, setReceipts] = useState([createReceipt()]);
+
+  const loadTransactions = () => {
+    //  calling this function for fetching transactions details
+    getReceipts(1).then((result) => {
+      setReceipts(result);
+    });
+  };
+
+  useEffect(() => {
+    loadTransactions();
+  }, []);
 
   return (
     <Paper
@@ -38,7 +40,8 @@ function PaymentDetails() {
       >
         Payment Receipts
       </Typography>
-      {data.map((receipt) => {
+      {/* creating multiple cards containing transactions details which are fetched into receipts state */}
+      {receipts.map((receipt) => {
         return (
           <Card
             sx={{
@@ -81,7 +84,7 @@ function PaymentDetails() {
                       align="center"
                       sx={{ fontSize: "1.1rem", marginTop: "0.5rem" }}
                     >
-                      {receipt.label}
+                      {receipt.feesType}
                     </Typography>
                   </Stack>
                 </Box>
@@ -98,21 +101,11 @@ function PaymentDetails() {
                     component="p"
                     sx={{ color: Styles.colors.primary, fontSize: "1rem" }}
                   >
-                    Content
+                    ID: {receipt.id}
                     <br />
-                    Content
+                    Date & Time: {receipt.timestamp}
                     <br />
-                    Content
-                    <br />
-                    Content
-                    <br />
-                    Content
-                    <br />
-                    Content
-                    <br />
-                    Content
-                    <br />
-                    {receipt.content}
+                    Details: {receipt.details}
                     <br />
                   </Typography>
                 </Box>
