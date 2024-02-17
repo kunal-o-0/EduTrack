@@ -13,6 +13,7 @@ public class PerforDto {
 	@JsonProperty(access = Access.READ_ONLY)
 	private long perfId;
 	private long marksObtained;
+	private String grades;
 	@NotNull
 	private long studId;
 	@NotNull

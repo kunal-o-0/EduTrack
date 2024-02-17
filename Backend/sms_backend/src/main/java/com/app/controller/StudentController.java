@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.app.dto.attendance.AttendDto;
 import com.app.dto.student.StudAttendDto;
 import com.app.dto.student.StudDto;
+import com.app.dto.student.StudPerfDto;
 import com.app.entities.primary.Student;
 import com.app.service.CourseService;
 import com.app.service.StudentService;
@@ -44,11 +45,18 @@ public class StudentController {
 				.body(new CreatePayload<StudDto>("Student list",studService.getStudentList())); 
 	}
 	
-	@GetMapping("/{studId}")
+	@GetMapping("/attendance/{studId}")
 	public ResponseEntity<?> getAttendance(@PathVariable @NotNull Long studId)
 	{
 		return ResponseEntity.status(HttpStatus.OK)
 				.body(new CreatePayload<StudAttendDto>("Student's attendance list",studService.getAttendance(studId)));  
+	}
+	
+	@GetMapping("/performance/{studId}")
+	public ResponseEntity<?> getPerformances(@PathVariable @NotNull Long studId)
+	{
+		return ResponseEntity.status(HttpStatus.OK)
+								.body(new CreatePayload<StudPerfDto>("Student's performance list", studService.getPerformance(studId)));
 	}
 	
 	@PostMapping

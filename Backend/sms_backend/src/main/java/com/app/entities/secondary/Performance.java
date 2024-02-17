@@ -30,6 +30,9 @@ public class Performance {
 	@Column(name="marks_obtained")
 	private long marksObtained;
 	
+	@Column(name="grades",length = 10)
+	private String grades;
+	
 	@ManyToOne
 	@JoinColumn(name="stud_id",nullable=false)
 	private Student student;
