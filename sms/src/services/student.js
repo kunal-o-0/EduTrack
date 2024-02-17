@@ -108,3 +108,25 @@ export const getReceipts = async (studId) => {
 /**
  *  END
  */
+
+/**
+ *  Pending fees service
+ *  used for fetching all the pending fees for student
+ */
+export const createPendingFeeObj = (id = "", amount = 0.0, feesType = "") => {
+  return { id, amount, feesType };
+};
+
+export const getPendingFees = async (studId) => {
+  const res = await axios.get(createUrl(`student/fees/get-pending/${studId}`));
+  return res.data.payload.map((item) => {
+    return createPendingFeeObj(
+      item.feesId,
+      parseFloat(item.feesPending),
+      item.feesType
+    );
+  });
+};
+/**
+ *  END
+ */

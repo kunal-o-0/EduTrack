@@ -9,21 +9,23 @@ import {
   Typography,
 } from "@mui/material";
 import Styles from "../../assets/Style";
-
-function createCheck(amount, label, content) {
-  return { amount, label, content };
-}
+import { useEffect, useState } from "react";
+import { createPendingFeeObj, getPendingFees } from "../../services/student";
 
 function PayFees() {
-  const data = [
-    createCheck(6000, "Tuition", "Tuition fees paid"),
-    createCheck(3000, "Tuition", "Tuition fees paid"),
-    createCheck(500, "Exam", "Tuition fees paid"),
-    createCheck(10, "Stationary", "Tuition fees paid"),
-    createCheck(10000, "Course", "Tuition fees paid"),
-    createCheck(200000, "Academics", "Tuition fees paid"),
-    createCheck(53512, "Scholorship", "Tuition fees paid"),
-  ];
+  //  creating pending fees state for storing list of pending fees
+  const [pendingFees, setPendingFees] = useState([createPendingFeeObj()]);
+
+  const loadPendingFees = () => {
+    //  calling this function for fetching pending fees with student id=1
+    getPendingFees(1).then((result) => {
+      setPendingFees(result);
+    });
+  };
+
+  useEffect(() => {
+    loadPendingFees();
+  }, []);
 
   return (
     <Paper
@@ -42,87 +44,98 @@ function PayFees() {
       >
         Pay Pending Fees
       </Typography>
-      {data.map((check) => {
-        return (
-          <Card
-            sx={{
-              padding: "0",
-              marginBottom: "1rem",
-            }}
-          >
-            <CardContent
+      {/* creating cards of pending fees based on the data fetched from DB */}
+      {pendingFees
+        .filter((pending) => {
+          //  this filter is created so that pending fees having amount=0 will be skipped
+          return parseFloat(pending.amount) !== 0;
+        })
+        .map((pending) => {
+          //  mapping of objects in pendingFees array
+          return (
+            <Card
               sx={{
-                color: Styles.colors.primary,
-                bgcolor: Styles.colors.secondary,
                 padding: "0",
-                ":last-child": { padding: "0" },
+                marginBottom: "1rem",
               }}
+              key={parseInt(pending.id)}
             >
-              <Stack
-                direction="row"
-                spacing={1}
-                sx={{ bgcolor: Styles.secondary }}
+              <CardContent
+                sx={{
+                  color: Styles.colors.primary,
+                  bgcolor: Styles.colors.secondary,
+                  padding: "0",
+                  ":last-child": { padding: "0" },
+                }}
               >
                 <Stack
-                  direction="column"
-                  sx={{
-                    bgcolor: Styles.colors.primary_dark,
-                    minWidth: "9rem",
-                    padding: "0.5rem",
-                  }}
+                  direction="row"
+                  spacing={1}
+                  sx={{ bgcolor: Styles.secondary }}
                 >
-                  <Typography
-                    variant="h5"
-                    component="p"
-                    align="center"
-                    gutterBottom
-                    sx={{ fontWeight: "600", fontSize: "1.4rem" }}
-                  >
-                    Amount
-                    <br />
-                    <br />₹ {check.amount}
-                  </Typography>
-                  <Divider
-                    variant="fullWidth"
-                    sx={{ bgcolor: Styles.colors.secondary }}
-                  />
-                  <Typography
-                    variant="body1"
-                    align="center"
-                    sx={{ marginTop: "0.5rem", fontSize: "1.1rem" }}
-                  >
-                    {check.label}
-                  </Typography>
-                </Stack>
-                <Box
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    padding: "0.5rem",
-                    width: "100%",
-                  }}
-                >
-                  <Button
-                    variant="contained"
+                  <Stack
+                    direction="column"
                     sx={{
-                      bgcolor: Styles.colors.primary,
-                      color: Styles.colors.primary_dark,
-                      ":hover": { color: Styles.colors.primary },
-                      width: "15rem",
-                      height: "3rem",
-                      fontSize: "1rem",
-                      fontWeight: "900",
+                      bgcolor: Styles.colors.primary_dark,
+                      minWidth: "9rem",
+                      padding: "0.5rem",
                     }}
                   >
-                    Pay Now
-                  </Button>
-                </Box>
-              </Stack>
-            </CardContent>
-          </Card>
-        );
-      })}
+                    <Typography
+                      variant="h5"
+                      component="p"
+                      align="center"
+                      gutterBottom
+                      sx={{ fontWeight: "600", fontSize: "1.4rem" }}
+                    >
+                      Amount
+                      <br />
+                      <br />₹ {pending.amount}
+                    </Typography>
+                    <Divider
+                      variant="fullWidth"
+                      sx={{ bgcolor: Styles.colors.secondary }}
+                    />
+                    <Typography
+                      variant="body1"
+                      align="center"
+                      sx={{ marginTop: "0.5rem", fontSize: "1.1rem" }}
+                    >
+                      {pending.feesType}
+                    </Typography>
+                  </Stack>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      padding: "0.5rem",
+                      width: "100%",
+                    }}
+                  >
+                    <Button
+                      variant="contained"
+                      sx={{
+                        bgcolor: Styles.colors.primary,
+                        color: Styles.colors.primary_dark,
+                        ":hover": { color: Styles.colors.primary },
+                        width: "15rem",
+                        height: "3rem",
+                        fontSize: "1rem",
+                        fontWeight: "900",
+                      }}
+                      onClick={() => {
+                        alert("Redirecting...");
+                      }}
+                    >
+                      Pay Now
+                    </Button>
+                  </Box>
+                </Stack>
+              </CardContent>
+            </Card>
+          );
+        })}
     </Paper>
   );
 }
