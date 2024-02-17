@@ -12,12 +12,10 @@ import Styles from "../assets/Style";
 import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { changeTitle } from "../features/navBarSlice";
-import getAttend from "../services/attendance";
+import getAttend, { createAttendData } from "../services/attendance";
+import { ATTEND_STATUS } from "../constants/student";
 
-function createAttend(attendId, attendStatus, attdenTimestamp) {
-  return { attendId, attendStatus, attdenTimestamp };
-}
-
+//  array of objects that contains column metadata
 const columns = [
   {
     id: "date",
@@ -39,17 +37,13 @@ const columns = [
   },
 ];
 
-function createData(date, day, status) {
-  return { date, day, status };
-}
-
 function Attendance() {
-  const [attends, setAttends] = useState([]);
+  //  state for storing fetched attendance data
+  const [attends, setAttends] = useState([createAttendData()]);
   const dispatch = useDispatch();
 
-  const date = new Date();
-
   const loadAttendance = () => {
+    //  call to service method for fetching attendance data
     getAttend(1).then((data) => {
       setAttends(data);
     });
@@ -59,27 +53,6 @@ function Attendance() {
     dispatch(changeTitle({ title: "Attendance" }));
     loadAttendance();
   }, []);
-
-  const data = [
-    createData("24-05-2023", "Monday", "Present"),
-    createData("27-12-2023", "Friday", "Present"),
-    createData("15-08-2023", "Tuesday", "Absent"),
-    createData("2-01-2023", "Wednesday", "Present"),
-    createData("14-02-2023", "Tuesday", "Absent"),
-    createData("04-05-2023", "Thursday", "Absent"),
-    createData("24-05-2023", "Monday", "Present"),
-    createData("27-12-2023", "Friday", "Present"),
-    createData("15-08-2023", "Tuesday", "Absent"),
-    createData("2-01-2023", "Wednesday", "Present"),
-    createData("14-02-2023", "Tuesday", "Absent"),
-    createData("04-05-2023", "Thursday", "Absent"),
-    createData("24-05-2023", "Monday", "Present"),
-    createData("27-12-2023", "Friday", "Present"),
-    createData("15-08-2023", "Tuesday", "Absent"),
-    createData("2-01-2023", "Wednesday", "Present"),
-    createData("14-02-2023", "Tuesday", "Absent"),
-    createData("04-05-2023", "Thursday", "Absent"),
-  ];
 
   return (
     <Paper
@@ -100,7 +73,7 @@ function Attendance() {
                 return (
                   <TableCell
                     align={column.align}
-                    key={column.id}
+                    // key={column.id}
                     sx={{
                       bgcolor: `${Styles.colors.primary_dark}`,
                       color: `${Styles.colors.primary}`,
@@ -120,17 +93,18 @@ function Attendance() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {data.map((row) => {
-              console.log(attends);
+            {/* looping through fetched data and assigning with row */}
+            {attends.map((row) => {
               return (
                 <TableRow>
+                  {/* iterating through local column array which contains columns metadata */}
                   {columns.map((column) => {
                     return (
                       <TableCell
                         align={column.align}
                         sx={{
                           bgcolor: `${
-                            row.status === "Present"
+                            row.status === ATTEND_STATUS.PRESENT
                               ? Styles.colors.success
                               : Styles.colors.error
                           }`,
@@ -158,3 +132,24 @@ function Attendance() {
 }
 
 export default Attendance;
+
+/* const data = [
+  createData("24-05-2023", "Monday", "Present"),
+  createData("27-12-2023", "Friday", "Present"),
+  createData("15-08-2023", "Tuesday", "Absent"),
+  createData("2-01-2023", "Wednesday", "Present"),
+  createData("14-02-2023", "Tuesday", "Absent"),
+  createData("04-05-2023", "Thursday", "Absent"),
+  createData("24-05-2023", "Monday", "Present"),
+  createData("27-12-2023", "Friday", "Present"),
+  createData("15-08-2023", "Tuesday", "Absent"),
+  createData("2-01-2023", "Wednesday", "Present"),
+  createData("14-02-2023", "Tuesday", "Absent"),
+  createData("04-05-2023", "Thursday", "Absent"),
+  createData("24-05-2023", "Monday", "Present"),
+  createData("27-12-2023", "Friday", "Present"),
+  createData("15-08-2023", "Tuesday", "Absent"),
+  createData("2-01-2023", "Wednesday", "Present"),
+  createData("14-02-2023", "Tuesday", "Absent"),
+  createData("04-05-2023", "Thursday", "Absent"),
+]; */
