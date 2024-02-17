@@ -12,19 +12,21 @@ import {
 } from "@mui/material";
 import Styles from "../assets/Style";
 import { useDispatch } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { changeTitle } from "../features/navBarSlice";
+import { createGrade, getGrades } from "../services/student";
 
+//  array of objects that describes column metadata
 const Columns = [
   { id: "subject", label: "Subject", minWidth: "20rem", align: "center" },
   {
-    id: "obtained_marks",
+    id: "obtainedMarks",
     label: "Obtained Marks",
     minWidth: "15rem",
     align: "center",
   },
   {
-    id: "total_marks",
+    id: "totalMarks",
     label: "Total Marks",
     minWidth: "15rem",
     align: "center",
@@ -32,31 +34,22 @@ const Columns = [
   { id: "grades", label: "Grades", minWidth: "5rem", align: "center" },
 ];
 
-function createData(subject, obtained_marks, total_marks, grades) {
-  return { subject, obtained_marks, total_marks, grades };
-}
-
 function Grades() {
+  //  state created for storing grades
+  const [grades, setGrades] = useState([createGrade()]);
   const dispatch = useDispatch();
+
+  function fetchGrades() {
+    //  calling function for fetching grades by passing student id=1
+    getGrades(1).then((result) => {
+      setGrades(result);
+    });
+  }
 
   useEffect(() => {
     dispatch(changeTitle({ title: "Grades" }));
+    fetchGrades();
   });
-
-  const data = [
-    createData("Maths", 553, 600, "A+"),
-    createData("Science", 553, 600, "A+"),
-    createData("History", 553, 600, "A+"),
-    createData("Geography", 553, 600, "A+"),
-    createData("Engineering Mathematics", 553, 600, "A+"),
-    createData("English", 553, 600, "A+"),
-    createData("Maths", 553, 600, "A+"),
-    createData("Maths", 553, 600, "A+"),
-    createData("Java", 553, 600, "A+"),
-    createData("Python", 553, 600, "A+"),
-    createData("Maths", 553, 600, "A+"),
-    createData("HTML", 553, 600, "A+"),
-  ];
 
   return (
     <Box
@@ -107,7 +100,8 @@ function Grades() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {data.map((row) => {
+              {/* Creating row with the help of map method of array and inserting it into table */}
+              {grades.map((row) => {
                 return (
                   <TableRow>
                     {Columns.map((column) => {
