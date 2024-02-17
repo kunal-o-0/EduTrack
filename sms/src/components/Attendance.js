@@ -12,7 +12,7 @@ import Styles from "../assets/Style";
 import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { changeTitle } from "../features/navBarSlice";
-import getAttend, { createAttendData } from "../services/attendance";
+import { getAttend, createAttendData } from "../services/student";
 import { ATTEND_STATUS } from "../constants/student";
 
 //  array of objects that contains column metadata

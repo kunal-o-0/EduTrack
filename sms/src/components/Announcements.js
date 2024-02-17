@@ -12,7 +12,7 @@ import {
 import Divider from "@mui/material/Divider";
 import { useDispatch } from "react-redux";
 import { changeTitle } from "../features/navBarSlice";
-import getAnnouns from "../services/announcement";
+import { getAnnouns } from "../services/student";
 
 //  returns object with required fields in it
 function createAnnoun(
