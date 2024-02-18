@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Link, Outlet } from "react-router-dom";
+import React from "react";
+import { Link } from "react-router-dom";
 import ImgAnnLight from "../assets/Icons/announcement_light.png";
 import ImgAttenLight from "../assets/Icons/attendance_light.png";
 import ImgScheLight from "../assets/Icons/schedule_light.png";
@@ -7,7 +7,7 @@ import ImgGradLight from "../assets/Icons/grades_light.png";
 import ImgFeesLight from "../assets/Icons/fees_light.png";
 import ImgInst from "../assets/Icons/institute.png";
 import ImgCloseLight from "../assets/Icons/close_light.png";
-import SideMenuRouter from "./SideMenuRouter";
+import DashboardRoutes from "../routes/DashboardRoutes";
 import "../css/SideBar.css";
 
 function SideMenu(props) {
@@ -94,7 +94,7 @@ function SideMenu(props) {
           </div>
         </Link>
       </div>
-      <SideMenuRouter />
+      <DashboardRoutes />
     </div>
   );
 }
