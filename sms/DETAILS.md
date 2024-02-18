@@ -9,3 +9,9 @@
 
 3] react-router-dom
 -- Used for routing between components
+
+4] react-bootstrap
+-- Used for using bootstrap library provided by react
+
+5] bootstrap
+-- Used for importing official bootstrap framework
