@@ -1,14 +1,16 @@
 import { Box, Button, TextField, Typography } from "@mui/material";
 import Styles from "../assets/Style";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const handleLogin = () => {
     console.log(email + "  " + password);
+    navigate("/dashboard");
   };
 
   return (
@@ -62,7 +64,7 @@ function Login() {
           }}
         >
           <Link
-            to="/forgot-password"
+            to="forgot-password"
             style={{
               textDecoration: "underline",
               fontSize: "1rem",
