@@ -1,18 +1,17 @@
 import React from "react";
-import { Link, BrowserRouter } from "react-router-dom";
+import { Link, BrowserRouter, Outlet } from "react-router-dom";
 import ImgAnnLight from "../assets/Icons/announcement_light.png";
 import ImgAttenLight from "../assets/Icons/attendance_light.png";
 import ImgScheLight from "../assets/Icons/schedule_light.png";
 import ImgGradLight from "../assets/Icons/grades_light.png";
 import ImgFeesLight from "../assets/Icons/fees_light.png";
 import "../css/SideBar.css";
-import DashboardRoutes from "../routes/DashboardRoutes";
 
 function SideMenu() {
   return (
     <div>
       <div className="container-side-menu collapsed">
-        <Link to="/announcements">
+        <Link to="announcements">
           <div className="menu-option" id="first">
             <img
               src={ImgAnnLight}
@@ -22,7 +21,7 @@ function SideMenu() {
             />
           </div>
         </Link>
-        <Link to="/attendance">
+        <Link to="attendance">
           <div className="menu-option">
             <img
               src={ImgAttenLight}
@@ -32,7 +31,7 @@ function SideMenu() {
             />
           </div>
         </Link>
-        <Link to="/schedule">
+        <Link to="schedule">
           <div className="menu-option">
             <img
               src={ImgScheLight}
@@ -42,7 +41,7 @@ function SideMenu() {
             />
           </div>
         </Link>
-        <Link to="/grades">
+        <Link to="grades">
           <div className="menu-option">
             <img
               src={ImgGradLight}
@@ -52,7 +51,7 @@ function SideMenu() {
             />
           </div>
         </Link>
-        <Link to="/fees">
+        <Link to="fees">
           <div className="menu-option">
             <img
               src={ImgFeesLight}
@@ -63,7 +62,7 @@ function SideMenu() {
           </div>
         </Link>
       </div>
-      <DashboardRoutes id="side-menu-output" />
+      <Outlet />
     </div>
   );
 }

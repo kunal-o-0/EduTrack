@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import ImgAnnLight from "../assets/Icons/announcement_light.png";
 import ImgAttenLight from "../assets/Icons/attendance_light.png";
 import ImgScheLight from "../assets/Icons/schedule_light.png";
@@ -7,7 +7,6 @@ import ImgGradLight from "../assets/Icons/grades_light.png";
 import ImgFeesLight from "../assets/Icons/fees_light.png";
 import ImgInst from "../assets/Icons/institute.png";
 import ImgCloseLight from "../assets/Icons/close_light.png";
-import DashboardRoutes from "../routes/DashboardRoutes";
 import "../css/SideBar.css";
 
 function SideMenu(props) {
@@ -38,7 +37,7 @@ function SideMenu(props) {
         <div className="menu-option">
           <span id="username">Hello Kunal!</span>
         </div>
-        <Link to="/announcements">
+        <Link to="announcements">
           <div className="menu-option">
             <img
               src={ImgAnnLight}
@@ -49,7 +48,7 @@ function SideMenu(props) {
             <span>Announcements</span>
           </div>
         </Link>
-        <Link to="/attendance">
+        <Link to="attendance">
           <div className="menu-option">
             <img
               src={ImgAttenLight}
@@ -60,7 +59,7 @@ function SideMenu(props) {
             <span>Attendance</span>
           </div>
         </Link>
-        <Link to="/schedule">
+        <Link to="schedule">
           <div className="menu-option">
             <img
               src={ImgScheLight}
@@ -71,7 +70,7 @@ function SideMenu(props) {
             <span>Schedule</span>
           </div>
         </Link>
-        <Link to="/grades">
+        <Link to="grades">
           <div className="menu-option">
             <img
               src={ImgGradLight}
@@ -82,7 +81,7 @@ function SideMenu(props) {
             <span>Grades</span>
           </div>
         </Link>
-        <Link to="/fees">
+        <Link to="fees">
           <div className="menu-option">
             <img
               src={ImgFeesLight}
@@ -94,7 +93,7 @@ function SideMenu(props) {
           </div>
         </Link>
       </div>
-      <DashboardRoutes />
+      <Outlet />
     </div>
   );
 }

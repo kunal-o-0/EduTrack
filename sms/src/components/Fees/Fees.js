@@ -30,7 +30,7 @@ function Fees() {
       }}
       elevation={0}
     >
-      {status === "" ? <FeesMain statusHandler={setStatus} /> : <Outlet />}
+      <Outlet />
     </Paper>
   );
 }

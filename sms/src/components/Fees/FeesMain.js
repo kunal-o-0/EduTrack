@@ -2,11 +2,7 @@ import { Button, Stack, Typography } from "@mui/material";
 import Styles from "../../assets/Style";
 import { Link } from "react-router-dom";
 
-const FeesMain = (props) => {
-  const handleCLick = (data) => {
-    props.statusHandler(data);
-  };
-
+const FeesMain = () => {
   return (
     <Stack sx={{ width: "30%" }} spacing={3}>
       <Link to="show-receipts">
@@ -19,7 +15,6 @@ const FeesMain = (props) => {
             ":hover": { bgcolor: Styles.colors.secondary_dark },
           }}
           disableRipple
-          onClick={(e) => handleCLick("show")}
         >
           <Typography
             variant="h5"
@@ -44,7 +39,6 @@ const FeesMain = (props) => {
             ":hover": { bgcolor: Styles.colors.secondary_dark },
           }}
           disableRipple
-          onClick={(e) => handleCLick("pay")}
         >
           <Typography
             variant="h5"
