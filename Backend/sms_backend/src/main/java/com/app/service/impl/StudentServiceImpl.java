@@ -2,6 +2,7 @@ package com.app.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
@@ -15,10 +16,12 @@ import com.app.dao.OrganizationDao;
 import com.app.dao.StudentDao;
 import com.app.dao.SubjectDao;
 import com.app.dto.attendance.AttendDto;
+import com.app.dto.student.StudAfterLoginDto;
 import com.app.dto.student.StudAttendDto;
 import com.app.dto.student.StudDto;
 import com.app.dto.student.StudGetPendingFeesDto;
 import com.app.dto.student.StudGetTransDto;
+import com.app.dto.student.StudLoginDto;
 import com.app.dto.student.StudPerfDto;
 import com.app.entities.primary.Organization;
 import com.app.entities.primary.Student;
@@ -139,5 +142,11 @@ public class StudentServiceImpl implements StudentService{
 										return feesDto;
 									})
 					.collect(Collectors.toList());
+	}
+
+	@Override
+	public StudAfterLoginDto authenticateStud(StudLoginDto studDto) throws NoSuchElementException{
+		Student studEnt=studDao.findByEmailPassword(studDto.getEmail(), studDto.getPassword()).orElseThrow();
+		return mapper.map(studEnt, StudAfterLoginDto.class);
 	}
 }

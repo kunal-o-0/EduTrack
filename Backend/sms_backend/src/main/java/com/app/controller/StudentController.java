@@ -1,6 +1,7 @@
 package com.app.controller;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 import javax.validation.constraints.NotNull;
@@ -24,6 +25,7 @@ import com.app.dto.student.StudAttendDto;
 import com.app.dto.student.StudDto;
 import com.app.dto.student.StudGetPendingFeesDto;
 import com.app.dto.student.StudGetTransDto;
+import com.app.dto.student.StudLoginDto;
 import com.app.dto.student.StudPerfDto;
 import com.app.entities.primary.Student;
 import com.app.service.CourseService;
@@ -78,6 +80,20 @@ public class StudentController {
 	{
 		return ResponseEntity.status(HttpStatus.OK)
 								.body(new CreatePayload<StudGetPendingFeesDto>("List of pending fees", studService.getPendingFees(studId)));
+	}
+	
+//	Getting student if there is stud with give credentials (email and password)
+	@PostMapping("/login")
+	public ResponseEntity<?> authenticateStud(@RequestBody StudLoginDto studDto)
+	{
+		try {
+			return ResponseEntity.status(HttpStatus.OK)
+					.body(studService.authenticateStud(studDto));
+		}
+		catch(NoSuchElementException e) {
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+					.body("Invalid credentials");
+		}
 	}
 	
 //	for adding student
