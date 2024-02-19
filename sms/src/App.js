@@ -33,7 +33,6 @@ function App() {
           <Route path="register" element={<Register />} exact />
           <Route path="forgot-password" element={<ForgotPassword />} exact />
         </Route>
-        <Route path="*" element={<NotFound />} />
         <Route path="/dashboard" element={<Dashboard />} exact>
           <Route index element={<Announcements />} />
           <Route path="announcements" element={<Announcements />} exact />
@@ -46,6 +45,7 @@ function App() {
             <Route path="pay-fees" element={<PayFees />} exact />
           </Route>
         </Route>
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </>
   );

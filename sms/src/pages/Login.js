@@ -1,16 +1,31 @@
-import { Box, Button, TextField, Typography } from "@mui/material";
+import { Alert, Box, Button, TextField, Typography } from "@mui/material";
 import Styles from "../assets/Style";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { authenticateStud } from "../services/login";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  //  this state for toggling visibility of alert component
+  const [isInvalid, setIsInvalid] = useState(false);
   const navigate = useNavigate();
 
   const handleLogin = () => {
-    console.log(email + "  " + password);
-    navigate("/dashboard");
+    authenticateStud({ email, password })
+      .then((result) => {
+        //  successful login
+        console.log(result);
+        navigate("/dashboard");
+      })
+      .catch((error) => {
+        //  alert component set visible for 3sec
+        // console.log(jwt);
+        setIsInvalid(true);
+        setTimeout(() => {
+          setIsInvalid(false);
+        }, 3000);
+      });
   };
 
   return (
@@ -29,6 +44,13 @@ function Login() {
           padding: "1rem",
         }}
       >
+        <Alert
+          variant="filled"
+          severity="error"
+          sx={{ width: "100%", display: isInvalid ? "flex" : "none" }}
+        >
+          Invalid credentials
+        </Alert>
         <Typography
           sx={{
             fontSize: "2rem",
