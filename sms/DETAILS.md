@@ -15,3 +15,6 @@
 
 5] bootstrap
 -- Used for importing official bootstrap framework
+
+6] jsonwebtoken
+-- Used for creating and parsing Json Web Tokens (JWT)
