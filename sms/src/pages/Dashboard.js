@@ -15,16 +15,16 @@ function Dashboard() {
           menuVisibility={menuVisibility}
           setMenuVisibility={setMenuVisibility}
         />
-      </div>
-      <div>
-        {menuVisibility ? (
-          <SideMenuClosed />
-        ) : (
-          <SideMenuExpanded
-            menuVisibility={menuVisibility}
-            setMenuVisibility={setMenuVisibility}
-          />
-        )}
+        <div>
+          {menuVisibility ? (
+            <SideMenuClosed />
+          ) : (
+            <SideMenuExpanded
+              menuVisibility={menuVisibility}
+              setMenuVisibility={setMenuVisibility}
+            />
+          )}
+        </div>
       </div>
     </>
   );

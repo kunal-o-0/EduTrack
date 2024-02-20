@@ -7,7 +7,7 @@ import {
   Typography,
 } from "@mui/material";
 import Styles from "../assets/Style";
-import BackgroundImg from "../assets/Images/blurred_background.jpg";
+import BackgroundImg from "../assets/Images/galaxy-background.jpg";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 
 const appBarMenu = [
@@ -47,8 +47,8 @@ function Main() {
           fontSize: "3rem",
           position: "absolute",
           top: "5rem",
-          textShadow: `0.5rem 0.5rem 0.9rem ${Styles.colors.primary_medium}`,
-          color: Styles.colors.primary_dark,
+          textShadow: `0.5rem 0.5rem 0.9rem ${Styles.colors.primary_dark}`,
+          color: Styles.colors.primary,
           fontWeight: "900",
         }}
       >
@@ -66,7 +66,7 @@ function Main() {
       >
         <AppBar
           position="sticky"
-          sx={{ backgroundColor: Styles.colors.secondary }}
+          sx={{ backgroundColor: Styles.colors.secondary_dark }}
         >
           <Container
             sx={{
