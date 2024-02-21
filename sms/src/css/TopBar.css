@@ -62,8 +62,11 @@
     height: 30px;
 }
 
-.expanded > .menu-btn{
-    
+#logout{
+    background-color: #ff3333;
+}
+#logout:hover{
+    background-color: #cc1d1d;
 }
 
 @media all and (max-width:992px)

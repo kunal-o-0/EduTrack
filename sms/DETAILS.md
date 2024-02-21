@@ -18,3 +18,8 @@
 
 6] jsonwebtoken
 -- Used for creating and parsing Json Web Tokens (JWT)
+
+7] react-cookie
+-- Used managing cookies
+
+## 8] buffer

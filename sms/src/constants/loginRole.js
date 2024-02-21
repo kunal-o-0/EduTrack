@@ -1,0 +1,1 @@
+export const LOGIN_ROLES = { STUDENT: "STUDENT", ADMIN: "ADMIN" };
