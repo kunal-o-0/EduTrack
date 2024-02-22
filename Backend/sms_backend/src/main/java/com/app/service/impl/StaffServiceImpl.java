@@ -1,6 +1,7 @@
 package com.app.service.impl;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
@@ -11,7 +12,9 @@ import org.springframework.stereotype.Service;
 
 import com.app.dao.OrganizationDao;
 import com.app.dao.StaffDao;
+import com.app.dto.staff.StaffAfterLoginDto;
 import com.app.dto.staff.StaffDto;
+import com.app.dto.staff.StaffLoginDto;
 import com.app.entities.primary.Staff;
 import com.app.service.StaffService;
 
@@ -57,6 +60,12 @@ public class StaffServiceImpl implements StaffService{
 	public void deleteStaff(Long staffId) {
 		staffDao.deleteById(staffId);
 		staffDao.flush();
+	}
+
+	@Override
+	public StaffAfterLoginDto authenticateStaff(StaffLoginDto staffDto) throws NoSuchElementException{
+		Staff staffEnt=staffDao.findByEmailPassword(staffDto.getEmail(), staffDto.getPassword()).orElseThrow();
+		return mapper.map(staffEnt, StaffAfterLoginDto.class);
 	}
 
 }
