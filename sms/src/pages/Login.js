@@ -13,7 +13,7 @@ import {
 import Styles from "../assets/Style";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { authenticateStud } from "../services/login";
+import { authenticateUser } from "../services/login";
 import { LOGIN_ROLES } from "../constants/loginRole";
 
 function Login() {
@@ -27,17 +27,19 @@ function Login() {
   const [role, setRole] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = () => {
-    authenticateStud({ email, password })
+  const handleLogin = (role) => {
+    console.log(role);
+    authenticateUser({ role, email, password })
       .then((result) => {
         //  successful login
         document.cookie = `user=${JSON.stringify(result)}`;
 
-        navigate("/dashboard");
+        role === LOGIN_ROLES.STUDENT
+          ? navigate("/student-dashboard")
+          : navigate("/staff-dashboard");
       })
       .catch((error) => {
         //  alert component set visible for 3sec
-        // console.log(jwt);
         setIsInvalid(true);
         setTimeout(() => {
           setIsInvalid(false);
@@ -151,7 +153,9 @@ function Login() {
                 marginTop: "1rem",
                 ":hover": { backgroundColor: Styles.colors.secondary_dark },
               }}
-              onClick={handleLogin}
+              onClick={() => {
+                handleLogin(role);
+              }}
             >
               Login
             </Button>
