@@ -4,7 +4,7 @@ import TopBar from "../components/TopBar";
 import SideMenuClosed from "../components/SideMenuClosed";
 import SideMenuExpanded from "../components/SideMenuExpanded";
 
-function Dashboard() {
+function StudentDashboard() {
   const [menuVisibility, setMenuVisibility] = useState(true);
 
   return (
@@ -30,4 +30,4 @@ function Dashboard() {
   );
 }
 
-export default Dashboard;
+export default StudentDashboard;

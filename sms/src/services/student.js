@@ -10,10 +10,6 @@ import axios from "axios";
 import { createUrl } from "./utils";
 import dateUtil from "date-and-time";
 
-/**
- *  Attendance service starts here
- *  student id is required to fetch attendance
- */
 //  function for creating attendance object based on fields in DB
 export const createAttendObj = (
   attendId = "",
@@ -27,6 +23,73 @@ export const createAttendObj = (
 export const createAttendData = (date = "", day = "", status = "") => {
   return { date, day, status };
 };
+
+//   Function for creating grade object
+export const createGrade = (
+  id = 0,
+  subject = "",
+  obtainedMarks = 0,
+  totalMarks = 0,
+  grades = ""
+) => {
+  return { id, subject, obtainedMarks, totalMarks, grades };
+};
+
+//  function for creating receipt
+export const createReceipt = (
+  id = "",
+  details = "",
+  amount = 0.0,
+  timestamp = "",
+  feesType = ""
+) => {
+  return { id, details, amount, timestamp, feesType };
+};
+
+//  function for creating pending fee object
+export const createPendingFeeObj = (id = "", amount = 0.0, feesType = "") => {
+  return { id, amount, feesType };
+};
+
+//  function for creating student
+export const createStudObj = (
+  id = -1,
+  first_name = "",
+  middle_name = "",
+  last_name = "",
+  mother_name = "",
+  roll_no = -1,
+  mob_no = "",
+  blood_group = "",
+  address = createAttendObj(),
+  aadhaar_no = "",
+  email = "",
+  password = "",
+  org_id = -1,
+  course_id = -1
+) => {
+  return {
+    id,
+    first_name,
+    middle_name,
+    last_name,
+    mother_name,
+    roll_no,
+    mob_no,
+    blood_group,
+    address,
+    aadhaar_no,
+    email,
+    password,
+    org_id,
+    course_id,
+  };
+};
+
+/**
+ *  Attendance service starts here
+ *  student id is required to fetch attendance
+ */
 
 export const getAttend = async (studId) => {
   const res = await axios.get(createUrl(`student/attendance/${studId}`));
@@ -52,16 +115,6 @@ export const getAttend = async (studId) => {
  *  Grades/Performance service
  *  Fetching grades of student with id passed as parameter
  */
-//   Function for creating grade object
-export const createGrade = (
-  id = 0,
-  subject = "",
-  obtainedMarks = 0,
-  totalMarks = 0,
-  grades = ""
-) => {
-  return { id, subject, obtainedMarks, totalMarks, grades };
-};
 
 export const getGrades = async (studId) => {
   const res = await axios.get(createUrl(`student/performance/${studId}`));
@@ -84,15 +137,6 @@ export const getGrades = async (studId) => {
  *  Transactions service
  *  used for fetching all the transactions made by student
  */
-export const createReceipt = (
-  id = "",
-  details = "",
-  amount = 0.0,
-  timestamp = "",
-  feesType = ""
-) => {
-  return { id, details, amount, timestamp, feesType };
-};
 
 export const getReceipts = async (studId) => {
   const res = await axios.get(createUrl(`student/fees/get-trans/${studId}`));
@@ -115,9 +159,6 @@ export const getReceipts = async (studId) => {
  *  Pending fees service
  *  used for fetching all the pending fees for student
  */
-export const createPendingFeeObj = (id = "", amount = 0.0, feesType = "") => {
-  return { id, amount, feesType };
-};
 
 export const getPendingFees = async (studId) => {
   const res = await axios.get(createUrl(`student/fees/get-pending/${studId}`));
@@ -126,6 +167,41 @@ export const getPendingFees = async (studId) => {
       item.feesId,
       parseFloat(item.feesPending),
       item.feesType
+    );
+  });
+};
+/**
+ *  END
+ */
+
+/**
+ *  Get student list
+ */
+export const getStudents = async () => {
+  const result = await axios.get(createUrl("student"));
+
+  return result.data.payload.map((stud) => {
+    return createStudObj(
+      stud.studId,
+      stud.studFName,
+      stud.studMName,
+      stud.studLName,
+      stud.studMotherName,
+      stud.studRollNo,
+      stud.studMobNo,
+      stud.studBloodGrp,
+      createAttendObj(
+        stud.addressLine,
+        stud.city,
+        stud.state,
+        stud.country,
+        stud.pincode
+      ),
+      stud.studAadhaarNo,
+      stud.email,
+      stud.password,
+      stud.orgId,
+      stud.courseId
     );
   });
 };
