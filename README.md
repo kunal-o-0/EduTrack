@@ -43,21 +43,21 @@ So, I developed that student management system in consideration of all the aspec
 
 ### Desktop
 
-![Dashboard-Admin Students List](./Screenshots/Desktop/Dashboard-Admin%20Students%20List.png)\
-![Dashboard-Student Announcement](./Screenshots/Desktop/Dashboard-Student%20Announcement.png)\
-![Dashboard-Student Fee Receipt](./Screenshots/Desktop/Dashboard-Student%20Fee%20Receipt.png)\
-![Footer](./Screenshots/Desktop/Footer.png)\
 ![Home Page](./Screenshots/Desktop/Home%20Page.png)\
+![Footer](./Screenshots/Desktop/Footer.png)\
 ![Login-admin](./Screenshots/Desktop/Login-admin.png)\
 ![Login-Landing](./Screenshots/Desktop/Login-Landing.png)
+![Dashboard-Student Announcement](./Screenshots/Desktop/Dashboard-Student%20Announcement.png)\
+![Dashboard-Student Fee Receipt](./Screenshots/Desktop/Dashboard-Student%20Fee%20Receipt.png)\
+![Dashboard-Admin Students List](./Screenshots/Desktop/Dashboard-Admin%20Students%20List.png)\
 
 ### Mobile
 
-![Contact Us](./Screenshots/Mobile/Contact%20Us.png)\
-![Dashboard-Student Attendance](./Screenshots/Mobile/Dashboard-Student%20Attendance.png)\
 ![Error Page](./Screenshots/Mobile/Error%20Page.png)\
+![Contact Us](./Screenshots/Mobile/Contact%20Us.png)\
 ![Login-student Invalid](./Screenshots/Mobile/Login-student%20Invalid.png)\
 ![Registration-admin](./Screenshots/Mobile/Registration-admin.png)
+![Dashboard-Student Attendance](./Screenshots/Mobile/Dashboard-Student%20Attendance.png)\
 
 ## Future scope :star:
 
