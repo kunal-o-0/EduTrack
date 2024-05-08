@@ -28,7 +28,7 @@ So, I developed that student management system in consideration of all the aspec
 - Staff and Admin:
   - They can register themselves and login to system
   - After login, all the sections are same as that of student's dashboard, only difference is that the data can be modified also.
-  - There is one more section named "students" that gives list of students and new student can be regiestered into system.
+  - There is one more section named "students" that gives list of students and new student can be regiestered into system.\
 That was about what actually the flow is.
 
 ## Technologies and tools used :hammer_and_wrench:
