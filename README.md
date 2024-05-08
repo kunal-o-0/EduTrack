@@ -8,7 +8,7 @@ This is my final project developed in the journey of CDAC which shows all the sk
 
 ## Is it really needed :expressionless:
 
-**YES**, as it helps student to concentrate on studies and achieve academic goals.Today, most of the things are getting digitalized, so why "education" not? To bring this change first we have make most of the processes inside educational body digital like taking attendance, storing grades of students, important upcoming events, schedules for lectures, etc.After doing it there must be some application which is capable of handling those things with accuracy and efficiently.Last but not not least, operating cost of all this must be as minimal as possible because after some years, data will be doubled then tripled and so on which will lead to increasing cost of operation. That's why we need good "student management system".
+**YES**, as it helps students to concentrate on studies and achieve academic goals.Today, most of the things are getting digitalized, so why "education" not? To bring this change, first we have make most of the processes inside educational body digital like taking attendance, storing grades of students, important upcoming events, schedules for lectures, etc.After doing it there must be some application which is capable of handling those things with accuracy and efficiently.Last but not not least, operating cost of all this must be as minimal as possible because after some years, data will be doubled then tripled and so on which will lead to increasing cost of operation. That's why we need good "student management system".
 
 ## My work :test_tube:
 
@@ -27,9 +27,9 @@ So, I developed that student management system in consideration of all the aspec
   - No information except personal info can be modified by student
 - Staff and Admin:
   - They can register themselves and login to system
-  - After login all sections are same as that of student's dashboard only difference is that data is can be modified also.
-  - There is one more section named "students" that gives list of students and new student can be regiestered into system.\
-    That was about what actually the flow is.
+  - After login, all the sections are same as that of student's dashboard, only difference is that the data can be modified also.
+  - There is one more section named "students" that gives list of students and new student can be regiestered into system.
+That was about what actually the flow is.
 
 ## Technologies and tools used :hammer_and_wrench:
 
